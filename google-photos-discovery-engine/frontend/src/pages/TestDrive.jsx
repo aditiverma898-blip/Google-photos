@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './TestDrive.css';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://google-photos.onrender.com/api';
 
 const SAMPLE_QUERIES = [
   { label: "Mom at the beach in 2018", cluster: "Face + Time + Scene" },
