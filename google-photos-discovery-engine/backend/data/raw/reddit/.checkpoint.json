@@ -1,0 +1,9 @@
+{
+  "source": "reddit",
+  "cursor": {
+    "completed_batches": [],
+    "error": "Monthly usage hard limit exceeded"
+  },
+  "records_scraped": 0,
+  "timestamp": "2026-09-18T07:50:22.386660+00:00"
+}

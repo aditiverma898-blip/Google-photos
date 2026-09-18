@@ -21,10 +21,6 @@ env/
 .env.local
 .env.*.local
 
-# --- Raw Data (large, regenerable) ---
-backend/data/raw/**/*.jsonl
-backend/data/raw/**/*.json
-!backend/data/raw/**/.gitkeep
 
 # --- Node.js / Frontend ---
 node_modules/
