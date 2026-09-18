@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import SourceBadge from '../components/SourceBadge';
 import './TestDrive.css';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://google-photos.onrender.com/api';
@@ -83,7 +84,20 @@ export default function TestDrive() {
     setComplaintLoading(true);
     try {
       const response = await axios.post(`${API_BASE_URL}/test-search`, { query: q });
-      setComplaintResults(response.data);
+      const data = response.data;
+      setComplaintResults(data);
+
+      if (data && data.similar_records) {
+        const missing = data.similar_records.filter(r => !r.source || r.source.toLowerCase() === 'unknown');
+        if (missing.length > 0) {
+          console.warn(
+            `[Photos Discovery Engine] ⚠️ Search Audit: ${missing.length} / ${data.similar_records.length} nearest complaints have MISSING source values! ` +
+            `Record IDs requiring backfill:`, missing.map(m => m.id)
+          );
+        } else {
+          console.log(`[Photos Discovery Engine] ✓ Search Audit: All ${data.similar_records.length} nearest complaints have verified source tags.`);
+        }
+      }
     } catch (err) {
       console.error("Complaint search failed:", err);
     } finally {
@@ -439,11 +453,21 @@ export default function TestDrive() {
                 <div className="records-list">
                   {complaintResults.similar_records.map(record => (
                     <div key={record.id} className={`record-card glass-panel ${record.is_confident ? '' : 'card-low-conf'}`}>
+                      <div className="record-card-top-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem', gap: '0.5rem' }}>
+                        <span className="cluster-tag-badge" style={{ fontSize: '0.75rem', fontWeight: '600', color: '#c4b5fd' }}>
+                          Cluster #{record.cluster_id}
+                        </span>
+                        <SourceBadge 
+                          source={record.source} 
+                          sourcePlatform={record.source_platform}
+                          recordId={record.id}
+                          rawText={record.raw_text} 
+                        />
+                      </div>
                       <p className="record-text">"{record.raw_text}"</p>
                       <div className="record-meta-small">
-                        <span>Cluster #{record.cluster_id}</span>
                         <span className={`distance-tag ${record.is_confident ? 'tag-confident' : 'tag-low-conf'}`}>
-                          {record.is_confident ? '✓ High Confidence' : '⚠️ Low Confidence Reference'} ({record.distance.toFixed(4)})
+                          {record.is_confident ? '✓ High Confidence' : '⚠️ Low Confidence Reference'} ({record.distance ? record.distance.toFixed(4) : 'N/A'})
                         </span>
                       </div>
                     </div>

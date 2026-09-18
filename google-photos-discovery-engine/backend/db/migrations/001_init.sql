@@ -10,6 +10,7 @@
 CREATE TABLE IF NOT EXISTS feedback_records (
     id                    INTEGER       PRIMARY KEY AUTOINCREMENT,
     source_platform       VARCHAR(20)   NOT NULL,
+    source                VARCHAR(30)   DEFAULT NULL,
     url_id                TEXT          NOT NULL UNIQUE,
     raw_text              TEXT          NOT NULL,
     photo_type            VARCHAR(30)   NOT NULL DEFAULT 'other',

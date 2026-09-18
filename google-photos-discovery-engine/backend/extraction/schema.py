@@ -27,6 +27,11 @@ EXTRACTION_SCHEMA = {
             "type": "STRING",
             "enum": ["reddit", "play_store", "app_store", "help_community", "youtube", "social"]
         },
+        "source": {
+            "type": "STRING",
+            "enum": ["Reddit", "Play Store", "App Store", "YouTube Comment", "Google Support Community", "Twitter/X"],
+            "description": "Canonical user-facing source platform name."
+        },
         "url_id": {
             "type": "STRING",
             "description": "Original URL or unique identifier of the source item."

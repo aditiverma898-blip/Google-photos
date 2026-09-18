@@ -24,13 +24,46 @@ async def _get_active_pool(request: Request):
         request.app.state.pool = pool
     return pool
 
+def canonicalize_source(raw_src: str | None) -> str | None:
+    """Map raw platform names to clean, user-facing canonical source strings."""
+    if not raw_src:
+        return None
+    s = str(raw_src).strip().lower()
+    if s in ("", "unknown", "null", "none"):
+        return None
+    if "reddit" in s:
+        return "Reddit"
+    if "play" in s:
+        return "Play Store"
+    if "app_store" in s or "appstore" in s or "ios" in s:
+        return "App Store"
+    if "youtube" in s:
+        return "YouTube Comment"
+    if "help" in s or "forum" in s or "support" in s:
+        return "Google Support Community"
+    if "twitter" in s or s == "x":
+        return "Twitter/X"
+    return str(raw_src).replace("_", " ").title()
+
 @router.get("/clusters")
 async def get_clusters(request: Request):
-    """Returns all clusters with their metadata."""
+    """Returns all clusters with their metadata and source-tagged quotes."""
     pool = await _get_active_pool(request)
     if not pool:
         return {"clusters": []}
         
+    # Preload quote to source mapping from feedback_records
+    quote_source_map = {}
+    try:
+        async with pool.execute("SELECT raw_text, source, source_platform, id FROM feedback_records") as cursor:
+            fb_rows = await cursor.fetchall()
+            for f in fb_rows:
+                f_dict = dict(f)
+                canon = f_dict.get("source") or canonicalize_source(f_dict.get("source_platform"))
+                quote_source_map[f_dict["raw_text"]] = (canon, f_dict["id"])
+    except Exception as e:
+        logger.warning(f"Could not load quote_source_map: {e}")
+
     async with pool.execute("""
         SELECT cluster_id, label, description, record_count, 
                source_diversity, severity_score, top_failure_points, 
@@ -41,24 +74,55 @@ async def get_clusters(request: Request):
         rows = await cursor.fetchall()
         
     clusters = []
+    missing_source_count = 0
     for r in rows:
         c = dict(r)
         c['source_diversity'] = json.loads(c['source_diversity'])
         c['top_failure_points'] = json.loads(c['top_failure_points'])
-        c['representative_quotes'] = json.loads(c['representative_quotes'])
+        raw_quotes = json.loads(c['representative_quotes'])
+        
+        formatted_quotes = []
+        for q in raw_quotes:
+            if isinstance(q, dict):
+                text = q.get("text", "")
+                src = q.get("source") or canonicalize_source(q.get("source_platform"))
+                qid = q.get("id")
+            else:
+                text = q
+                match_info = quote_source_map.get(text)
+                src = match_info[0] if match_info else None
+                qid = match_info[1] if match_info else None
+                
+            if not src:
+                missing_source_count += 1
+                logger.warning(f"[Missing Source] Complaint quote in cluster #{c['cluster_id']} has no source: '{text[:60]}...'. Flagged for backfill.")
+
+            formatted_quotes.append({
+                "id": qid,
+                "text": text,
+                "source": src,
+                "cluster_id": c['cluster_id'],
+                "cluster_label": c['label'],
+                "severity_score": c['severity_score']
+            })
+            
+        c['representative_quotes'] = formatted_quotes
         clusters.append(c)
         
-    return {"clusters": clusters}
+    if missing_source_count > 0:
+        logger.warning(f"Total representative complaint quotes missing source across clusters: {missing_source_count}")
+        
+    return {"clusters": clusters, "missing_source_count": missing_source_count}
 
 @router.get("/clusters/{cluster_id}/records")
 async def get_cluster_records(request: Request, cluster_id: int):
     """Returns raw feedback records associated with a specific cluster."""
-    pool = request.app.state.pool
+    pool = await _get_active_pool(request)
     if not pool:
         return {"records": []}
         
     async with pool.execute("""
-        SELECT id, source_platform, raw_text, photo_type, 
+        SELECT id, cluster_id, source, source_platform, raw_text, photo_type, 
                remembered_attributes, forgotten_attributes, 
                search_strategy, failure_point, workaround, emotional_signal
         FROM feedback_records
@@ -66,7 +130,22 @@ async def get_cluster_records(request: Request, cluster_id: int):
         ORDER BY created_at DESC
     """, (cluster_id,)) as cursor:
         rows = await cursor.fetchall()
-        return {"records": [dict(r) for r in rows]}
+        
+    records = []
+    missing_source_count = 0
+    for r in rows:
+        item = dict(r)
+        canonical_src = item.get("source") or canonicalize_source(item.get("source_platform"))
+        if not canonical_src:
+            missing_source_count += 1
+            logger.warning(f"[Missing Source] Complaint record #{item['id']} has no source platform (raw='{item.get('source_platform')}'). Flagged for backfill.")
+        item["source"] = canonical_src
+        records.append(item)
+        
+    if missing_source_count > 0:
+        logger.warning(f"Cluster #{cluster_id} has {missing_source_count} records missing source values.")
+        
+    return {"records": records, "missing_source_count": missing_source_count}
 
 @router.get("/synthesis")
 async def get_synthesis(request: Request):
@@ -167,10 +246,11 @@ async def test_search(request: Request, query_data: SearchQuery):
         )
 
         # 3. Find Top 5 Similar Records (Cosine Distance via NumPy)
-        async with pool.execute("SELECT id, cluster_id, raw_text, failure_point, search_strategy, embedding FROM feedback_records WHERE embedding IS NOT NULL") as cursor:
+        async with pool.execute("SELECT id, cluster_id, source, source_platform, raw_text, failure_point, search_strategy, embedding FROM feedback_records WHERE embedding IS NOT NULL") as cursor:
             records_rows = await cursor.fetchall()
 
         records_with_dist = []
+        missing_source_count = 0
         for r in records_rows:
             item = dict(r)
             emb_blob = item.pop("embedding", None)
@@ -181,10 +261,19 @@ async def test_search(request: Request, query_data: SearchQuery):
                 dist = max(0.0, 1.0 - sim)
                 item["distance"] = round(dist, 4)
                 item["is_confident"] = bool(dist <= SIMILARITY_THRESHOLD)
+                
+                canonical_src = item.get("source") or canonicalize_source(item.get("source_platform"))
+                if not canonical_src:
+                    missing_source_count += 1
+                    logger.warning(f"[Missing Source] Nearest complaint record #{item['id']} has no source platform (raw='{item.get('source_platform')}'). Flagged for backfill.")
+                item["source"] = canonical_src
                 records_with_dist.append(item)
 
         records_with_dist.sort(key=lambda x: x["distance"])
         similar_records = records_with_dist[:5]
+
+        if missing_source_count > 0:
+            logger.warning(f"Total candidate complaints evaluated missing source: {missing_source_count}")
 
         return {
             "query": query_data.query,

@@ -71,6 +71,8 @@ def mock_search_response(query: str):
             {
                 "id": 1,
                 "cluster_id": 1,
+                "source": "Play Store",
+                "source_platform": "play_store",
                 "raw_text": f"I tried searching for {query} but Google Photos returned completely unrelated photos or empty results.",
                 "failure_point": "Subject recognition failed on vague query",
                 "search_strategy": "Vague entity description",
@@ -80,6 +82,8 @@ def mock_search_response(query: str):
             {
                 "id": 2,
                 "cluster_id": 1,
+                "source": "Reddit",
+                "source_platform": "reddit",
                 "raw_text": f"Cannot find photos when searching for {query}.",
                 "failure_point": "Multi-constraint entity indexing failure",
                 "search_strategy": "Subject search",

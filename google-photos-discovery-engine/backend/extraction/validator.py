@@ -39,6 +39,25 @@ def validate_and_filter_records(raw_responses: list[dict]) -> list[dict]:
                 discarded_invalid += 1
                 continue
                 
+            # Canonicalize or backfill source field
+            raw_src = item.get("source") or item.get("source_platform")
+            canon_map = {
+                "play_store": "Play Store",
+                "reddit": "Reddit",
+                "youtube": "YouTube Comment",
+                "youtube_comment": "YouTube Comment",
+                "help_community": "Google Support Community",
+                "helpforum": "Google Support Community",
+                "app_store": "App Store",
+                "appstore": "App Store",
+                "social": "Twitter/X",
+                "twitter": "Twitter/X"
+            }
+            canon_src = canon_map.get(str(raw_src).lower().strip()) if raw_src else None
+            if not canon_src:
+                logger.warning(f"Extracted record url_id='{item.get('url_id')}' has missing source platform: '{raw_src}'. Flagged for backfill.")
+            item["source"] = canon_src
+
             # Keep the workaround field if it exists, otherwise set to None
             item["workaround"] = item.get("workaround", None)
             

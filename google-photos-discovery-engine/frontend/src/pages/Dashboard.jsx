@@ -18,8 +18,34 @@ export default function Dashboard() {
           axios.get(`${API_BASE_URL}/synthesis`)
         ]);
         
-        setClusters(clustersRes.data.clusters || []);
+        const cl = clustersRes.data.clusters || [];
+        setClusters(cl);
         setSynthesis(synthesisRes.data.synthesis || []);
+
+        // Audit missing sources across all cluster sample quotes
+        let totalQuotes = 0;
+        let missingQuotes = 0;
+        const missingIds = [];
+        cl.forEach(c => {
+          if (c.representative_quotes) {
+            c.representative_quotes.forEach(q => {
+              totalQuotes++;
+              const src = typeof q === 'object' ? q.source : null;
+              if (!src || src.toLowerCase() === 'unknown') {
+                missingQuotes++;
+                if (typeof q === 'object' && q.id) missingIds.push(q.id);
+              }
+            });
+          }
+        });
+        if (missingQuotes > 0) {
+          console.warn(
+            `[Photos Discovery Engine] ⚠️ Dashboard Audit: ${missingQuotes} / ${totalQuotes} cluster sample complaints have MISSING source platforms! ` +
+            `IDs requiring backfill:`, missingIds
+          );
+        } else {
+          console.log(`[Photos Discovery Engine] ✓ Dashboard Audit: All ${totalQuotes} cluster sample complaints have verified source tags.`);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {

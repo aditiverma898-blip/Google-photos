@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { formatSeverity } from '../utils/formatters';
+import SourceBadge from './SourceBadge';
 import './ClusterCard.css';
 
 export default function ClusterCard({ cluster }) {
@@ -17,6 +18,12 @@ export default function ClusterCard({ cluster }) {
     if (score > 0.48) return 'Medium Frustration';
     return 'Nuisance';
   };
+
+  const sampleQuote = cluster.representative_quotes && cluster.representative_quotes.length > 0
+    ? (typeof cluster.representative_quotes[0] === 'object'
+        ? cluster.representative_quotes[0]
+        : { text: cluster.representative_quotes[0], source: null })
+    : null;
 
   return (
     <div 
@@ -48,6 +55,22 @@ export default function ClusterCard({ cluster }) {
           <span key={i} className="cluster-tag">{fp}</span>
         ))}
       </div>
+
+      {sampleQuote && (
+        <div className="cluster-quote-preview">
+          <div className="quote-preview-header">
+            <span className="quote-label">Sample Complaint</span>
+            <SourceBadge 
+              source={sampleQuote.source} 
+              recordId={sampleQuote.id}
+              rawText={sampleQuote.text} 
+            />
+          </div>
+          <p className="quote-preview-text">
+            "{sampleQuote.text}"
+          </p>
+        </div>
+      )}
     </div>
   );
 }
