@@ -14,6 +14,14 @@ const SAMPLE_QUERIES = [
   { label: "Mom with Charlie at the beach in Maui in Summer 2018", cluster: "5-Way Joint Compound" },
 ];
 
+const SAMPLE_COMPLAINT_QUERIES = [
+  { label: "Can't find old dog pictures from 2018", desc: "Broken Search" },
+  { label: "Cloud backup photos disappeared after update", desc: "Missing Cloud Albums" },
+  { label: "Face grouping stopped working and mixed up people", desc: "Face Tagging" },
+  { label: "Searching for 'Car Engine' gives random photos", desc: "Object & Text" },
+  { label: "Timeline sorts by upload date instead of capture date", desc: "Date Indexing" },
+];
+
 export default function TestDrive() {
   const [activeTab, setActiveTab] = useState('engine'); // 'engine', 'benchmark', 'complaints'
   
@@ -67,12 +75,14 @@ export default function TestDrive() {
     }
   };
 
-  const handleComplaintSearch = async (e) => {
-    e.preventDefault();
-    if (!complaintQuery.trim()) return;
+  const handleComplaintSearch = async (e, customQuery) => {
+    if (e) e.preventDefault();
+    const q = customQuery !== undefined ? customQuery : complaintQuery;
+    if (!q || !q.trim()) return;
+    setComplaintQuery(q);
     setComplaintLoading(true);
     try {
-      const response = await axios.post(`${API_BASE_URL}/test-search`, { query: complaintQuery });
+      const response = await axios.post(`${API_BASE_URL}/test-search`, { query: q });
       setComplaintResults(response.data);
     } catch (err) {
       console.error("Complaint search failed:", err);
@@ -364,6 +374,23 @@ export default function TestDrive() {
             </button>
           </form>
           
+          <div className="sample-pills" style={{ marginTop: '1rem', marginBottom: '1.5rem' }}>
+            <span className="pills-label">💡 Try these sample questions:</span>
+            {SAMPLE_COMPLAINT_QUERIES.map((sq, idx) => (
+              <button 
+                key={idx}
+                type="button"
+                className="sample-pill"
+                onClick={() => {
+                  setComplaintQuery(sq.label);
+                  handleComplaintSearch(null, sq.label);
+                }}
+              >
+                {sq.label}
+              </button>
+            ))}
+          </div>
+
           {complaintResults && (
             <div className="results-container animate-fade-in">
               <div className="nearest-cluster glass-panel">
