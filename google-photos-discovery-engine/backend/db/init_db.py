@@ -8,7 +8,6 @@ import glob
 import logging
 import aiosqlite
 from db.connection import get_pool, DB_PATH
-from search.seed_data import seed_discovery_database
 
 logger = logging.getLogger(__name__)
 
@@ -30,8 +29,7 @@ async def init_and_seed():
     """Initializes the database, runs migrations, and seeds records."""
     db = await get_pool()
     await run_migrations(db)
-    await seed_discovery_database(db)
-    logger.info("Database initialized and seeded.")
+    logger.info("Database initialized.")
 
 if __name__ == "__main__":
     import asyncio

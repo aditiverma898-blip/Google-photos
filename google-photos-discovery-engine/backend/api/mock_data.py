@@ -1,39 +1,63 @@
 MOCK_CLUSTERS = [
     {
         "cluster_id": 1,
-        "label": "Face Tagging Failures",
-        "description": "Users cannot find specific people despite tagging them.",
-        "severity_score": 8.5,
-        "size": 450,
-        "top_failure_points": ["Search by face returns no results", "Wrong person tagged"],
-        "representative_quotes": ["I searched for my mom and it showed me my dog.", "Face grouping just stopped working entirely."]
+        "label": "Background Object Recall",
+        "description": "Users remember a prominent background object but forget the primary subject.",
+        "severity_score": 0.75,
+        "size": 500,
+        "top_failure_points": ["Background objects not indexed", "Primary subject overshadows background"],
+        "representative_quotes": [
+            {"quote": "I know she was holding a blue coffee mug but searching 'blue mug' gives me nothing.", "source": "Reddit - r/googlephotos"},
+            {"quote": "Trying to find the picture with the yellow taxi in the background.", "source": "Google Support Community"}
+        ]
     },
     {
         "cluster_id": 2,
-        "label": "Date Range Issues",
-        "description": "Searching for photos between specific dates fails.",
-        "severity_score": 7.2,
-        "size": 320,
-        "top_failure_points": ["Cannot search 'Summer 2018'", "Month queries ignored"],
-        "representative_quotes": ["When I type 'June 2019' it gives me photos from 2022.", "Why can't I search by year?"]
+        "label": "Relative Time and Space Search",
+        "description": "Users search using relative time (e.g., 'after my birthday') or relative locations.",
+        "severity_score": 0.82,
+        "size": 450,
+        "top_failure_points": ["Relative temporal parsing fails", "No support for event-based offsets"],
+        "representative_quotes": [
+            {"quote": "I want the photos taken a few days after my birthday in Paris.", "source": "App Store"},
+            {"quote": "Searching for 'weekend before Halloween' doesn't work.", "source": "Twitter/X"}
+        ]
     },
     {
         "cluster_id": 3,
-        "label": "Pet Recognition",
-        "description": "Fails to distinguish between similar looking pets.",
-        "severity_score": 6.8,
-        "size": 210,
-        "top_failure_points": ["Cats confused with dogs", "Cannot find specific pet"],
-        "representative_quotes": ["It thinks my black cat is a black pillow.", "I have 3 golden retrievers and it thinks they are all the same dog."]
+        "label": "Aesthetic and Weather Context",
+        "description": "Users search by the mood, weather, or aesthetic of the photo.",
+        "severity_score": 0.65,
+        "size": 300,
+        "top_failure_points": ["Lack of weather metadata indexing", "Emotion and mood are not extracted"],
+        "representative_quotes": [
+            {"quote": "I'm looking for a rainy day at a cafe, but it just shows me pictures of coffee.", "source": "Reddit - r/googlephotos"},
+            {"quote": "Why can't I search for 'gloomy weather' or 'sad mood'?", "source": "Google Support Community"}
+        ]
     },
     {
         "cluster_id": 4,
-        "label": "Location Search",
-        "description": "Searching by city or landmark returns incorrect results.",
-        "severity_score": 5.5,
-        "size": 150,
-        "top_failure_points": ["City name ignored", "GPS coordinates missing"],
-        "representative_quotes": ["I searched for 'Paris' and got pictures of my living room.", "Location search is completely broken."]
+        "label": "Abstract Concept and Meme Retrieval",
+        "description": "Users look for memes, screenshots, or abstract ideas rather than physical objects.",
+        "severity_score": 0.60,
+        "size": 250,
+        "top_failure_points": ["OCR text not prioritized for abstract concepts", "Semantic understanding of memes is lacking"],
+        "representative_quotes": [
+            {"quote": "Trying to find a screenshot of a funny meme about cats, but searching 'cat meme' just shows actual cats.", "source": "App Store"},
+            {"quote": "I need the screenshot with the quote about persistence.", "source": "Reddit - r/googlephotos"}
+        ]
+    },
+    {
+        "cluster_id": 5,
+        "label": "Action and Event-Based Recall",
+        "description": "Users remember what was happening in the media (actions/events) but lack text keywords.",
+        "severity_score": 0.85,
+        "size": 650,
+        "top_failure_points": ["Search indexes static nouns over dynamic verbs", "Action and event context not extracted"],
+        "representative_quotes": [
+            {"quote": "I'm looking for the video where my dog was barking at the TV, but 'barking dog' shows nothing.", "source": "Reddit - r/googlephotos"},
+            {"quote": "Can't find that picture of me blowing out candles, 'birthday' just shows cakes without me.", "source": "Play Store"}
+        ]
     }
 ]
 
@@ -64,7 +88,7 @@ def mock_search_response(query: str):
             "cluster_id": 1,
             "label": "Subject & Media Retrieval Difficulties",
             "description": f"User feedback related to searching for subjects like '{query}'.",
-            "severity_score": 8.5,
+            "severity_score": 0.85,
             "distance": 0.2841
         },
         "similar_records": [

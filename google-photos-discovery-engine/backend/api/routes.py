@@ -79,15 +79,25 @@ async def get_clusters(request: Request):
         c['source_diversity'] = json.loads(c['source_diversity'])
         c['top_failure_points'] = json.loads(c['top_failure_points'])
         raw_quotes = json.loads(c['representative_quotes'])
+        formatted_quotes = []
         
         for q in raw_quotes:
             if isinstance(q, dict):
-                text = q.get("text", "")
+                text = q.get("quote") or q.get("text")
+                if not text:
+                    logger.warning(f"[Schema Mismatch] Representative quote missing both 'quote' and 'text' keys. Raw record: {q}")
+                    text = ""
             else:
                 text = q
                 
             match_info = quote_source_map.get(text)
             
+            if not match_info and text:
+                for raw, info in quote_source_map.items():
+                    if text in raw:
+                        match_info = info
+                        break
+
             if isinstance(q, dict):
                 src = match_info.get("source") if match_info else (q.get("source") or canonicalize_source(q.get("source_platform")))
                 qid = match_info.get("id") if match_info else q.get("id")

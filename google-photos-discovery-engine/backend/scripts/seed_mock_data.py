@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from api.mock_data import MOCK_CLUSTERS, MOCK_SYNTHESIS
 
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
-db_path = os.path.join(os.path.dirname(__file__), "..", "data", "database.db")
+db_path = os.path.join(os.path.dirname(__file__), "..", "data", "discovery_engine.db")
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 def seed():
@@ -46,7 +46,9 @@ def seed():
         
         # Insert a few mock feedback records per cluster
         for j, fp in enumerate(c["top_failure_points"]):
-            rec_text = f"User complained about: {fp}. {c['representative_quotes'][0]}"
+            quote_val = c['representative_quotes'][0]
+            quote_str = quote_val.get("quote", "") if isinstance(quote_val, dict) else quote_val
+            rec_text = f"User complained about: {fp}. {quote_str}"
             rec_resp = client.models.embed_content(
                 model="gemini-embedding-2",
                 contents=rec_text

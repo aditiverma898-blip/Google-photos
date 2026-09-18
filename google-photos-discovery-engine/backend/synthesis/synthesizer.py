@@ -92,7 +92,8 @@ def build_context_prompt(clusters: list[dict]) -> str:
         context += f"Top Failure Points: {', '.join(c['top_failure_points'])}\n"
         context += "Representative Quotes:\n"
         for q in c['representative_quotes']:
-            context += f"- \"{q}\"\n"
+            text = q.get("quote") or q.get("text") if isinstance(q, dict) else q
+            context += f"- \"{text}\"\n"
         context += "-" * 40 + "\n\n"
         
     context += "### Core Questions to Answer ###\n"

@@ -23,11 +23,9 @@ async def lifespan(app: FastAPI):
         logger.info("Connected to SQLite database.")
         try:
             from db.init_db import run_migrations
-            from search.seed_data import seed_discovery_database
             await run_migrations(app.state.pool)
-            await seed_discovery_database(app.state.pool)
         except Exception as me:
-            logger.warning(f"Auto-migration or seeding error: {me}")
+            logger.warning(f"Auto-migration error: {me}")
     except Exception as e:
         app.state.pool = None
         logger.warning(f"Could not connect to SQLite. Running in mock mode. Error: {e}")
