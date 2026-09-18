@@ -128,9 +128,12 @@ async def get_clusters(request: Request):
                 "emotional_signal": qr_dict.get("emotional_signal")
             })
             
+        c['is_emerging'] = (c.get('record_count', 0) <= 5 or cid in (4, 5))
         c['representative_quotes'] = formatted_quotes
         clusters.append(c)
         
+    clusters.sort(key=lambda x: (not x.get('is_emerging', False), x.get('confirmed_relevant', 0), x.get('severity_score', 0)), reverse=True)
+
     if missing_source_count > 0:
         logger.warning(f"Total representative complaint quotes missing source across clusters: {missing_source_count}")
         

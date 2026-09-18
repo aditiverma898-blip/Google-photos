@@ -58,6 +58,21 @@ export default function ClusterDetail() {
         <p>Found {records.length} historical user complaints exhibiting this failure pattern.</p>
       </header>
       
+      {records.length <= 5 && (
+        <div style={{
+          margin: '0.5rem 0 1.5rem 0',
+          padding: '0.85rem 1.25rem',
+          background: 'rgba(245, 158, 11, 0.1)',
+          border: '1px dashed rgba(245, 158, 11, 0.5)',
+          borderRadius: '8px',
+          color: '#fcd34d',
+          fontSize: '0.9rem',
+          lineHeight: '1.5'
+        }}>
+          ⚠️ <strong>Emerging pattern — low sample size (n={records.length}), not yet statistically supported:</strong> This pattern currently contains only {records.length} sample complaints in the database. It is tracked as an observational hypothesis rather than a statistically validated cluster.
+        </div>
+      )}
+
       <div className="records-grid">
         {records.map(record => (
           <div key={record.id} className="record-card glass-panel">
