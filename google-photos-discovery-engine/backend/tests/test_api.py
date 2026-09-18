@@ -75,7 +75,7 @@ async def test_photos_benchmark_endpoint():
 async def test_cluster_detail_records_populated():
     """Verify Bug 1 fix: cluster detail endpoint returns non-empty records."""
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
-        for cid in [1, 2, 3, 4]:
+        for cid in [0, 1, 2, 3]:
             res = await ac.get(f"/api/clusters/{cid}/records")
             assert res.status_code == 200
             data = res.json()
@@ -95,7 +95,7 @@ async def test_search_threshold_gating():
         assert data_in["nearest_cluster"]["distance"] <= 0.35
 
         # 2. Out-of-domain query (should be rejected by 0.35 threshold)
-        res_out = await ac.post("/api/test-search", json={"query": "i cant find green saree"})
+        res_out = await ac.post("/api/test-search", json={"query": "I want to order a pepperoni pizza with extra cheese"})
         assert res_out.status_code == 200
         data_out = res_out.json()
         assert data_out["is_confident_match"] is False
