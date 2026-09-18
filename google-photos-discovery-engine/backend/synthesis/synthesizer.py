@@ -62,7 +62,7 @@ SYNTHESIS_SCHEMA = {
                     "verbatim_quotes": {
                         "type": "ARRAY",
                         "items": {"type": "STRING"},
-                        "description": "Verbatim user quotes supporting the answer."
+                        "description": "2 to 3 verbatim natural-language user complaint comments from real users. Absolutely NO metadata tags like 'Remembered:' or 'Forgotten:'."
                     }
                 },
                 "required": ["cited_clusters", "verbatim_quotes"]
@@ -88,8 +88,9 @@ CRITICAL RULES FOR METRIC CITATIONS:
 2. ABSOLUTELY NO STALE DATA:
    DO NOT cite numbers from old pilot data (such as n=26, n=34, n=63, n=7, or severity scores like 4.9/10, 5.0/10, 6.1/10). All cited figures MUST strictly match the live numbers above.
 
-3. Verbatim Quotes:
-   In your 'evidence.verbatim_quotes' array, include exact verbatim excerpts from the provided representative quotes. Do not modify or paraphrase them.
+3. Verbatim User Complaint Comments (MANDATORY):
+   In your 'evidence.verbatim_quotes' array, you MUST provide 2 to 3 real, natural-language complaint quotes directly from user comments (the text in User Complaint: "...").
+   STRICT PROHIBITION: NEVER output metadata or analytical labels (such as 'Remembered: [...]', 'Forgotten: [...]', or 'Strategy: [...]') as verbatim quotes. Every single quote MUST be a genuine, human user comment expressing their real-world experience or frustration.
 
 4. Deep Strategic Analysis:
    In 'answer_text', provide comprehensive, actionable answers explaining the root failure modes, user psychological signals, and concrete product recommendations for Google Photos search.
@@ -116,7 +117,7 @@ def build_context_prompt(clusters: list[dict]) -> str:
         
         quotes = c.get('representative_quotes', [])
         if quotes:
-            context += "Representative Verified Quotes (with extracted cognitive signals):\n"
+            context += "Representative Real User Complaint Comments:\n"
             for q in quotes:
                 if isinstance(q, dict):
                     text = q.get("quote") or q.get("text") or ""
@@ -124,17 +125,10 @@ def build_context_prompt(clusters: list[dict]) -> str:
                     forg = q.get("forgotten") or q.get("forgotten_attributes") or ""
                     strat = q.get("strategy") or q.get("search_strategy") or ""
                     fail = q.get("failure_point") or ""
-                    context += f"- Quote: \"{text}\"\n"
-                    if rem:
-                        context += f"  Remembered: {rem}\n"
-                    if forg:
-                        context += f"  Forgotten: {forg}\n"
-                    if strat:
-                        context += f"  Strategy: {strat}\n"
-                    if fail:
-                        context += f"  Failure: {fail}\n"
+                    context += f"- User Complaint: \"{text}\"\n"
+                    context += f"  [Analytical context: remembered={rem}, forgotten={forg}, strategy={strat}, failure={fail}]\n"
                 else:
-                    context += f"- \"{q}\"\n"
+                    context += f"- User Complaint: \"{q}\"\n"
         context += "-" * 50 + "\n\n"
         
     context += "### Core Questions to Answer ###\n"
