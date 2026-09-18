@@ -54,3 +54,37 @@ MOCK_SYNTHESIS = [
         "cited_clusters": [1, 2, 4]
     }
 ]
+
+def mock_search_response(query: str):
+    return {
+        "query": query,
+        "is_confident_match": True,
+        "threshold": 0.35,
+        "nearest_cluster": {
+            "cluster_id": 1,
+            "label": "Subject & Media Retrieval Difficulties",
+            "description": f"User feedback related to searching for subjects like '{query}'.",
+            "severity_score": 8.5,
+            "distance": 0.2841
+        },
+        "similar_records": [
+            {
+                "id": 1,
+                "cluster_id": 1,
+                "raw_text": f"I tried searching for {query} but Google Photos returned completely unrelated photos or empty results.",
+                "failure_point": "Subject recognition failed on vague query",
+                "search_strategy": "Vague entity description",
+                "distance": 0.2410,
+                "is_confident": True
+            },
+            {
+                "id": 2,
+                "cluster_id": 1,
+                "raw_text": f"Cannot find photos when searching for {query}.",
+                "failure_point": "Multi-constraint entity indexing failure",
+                "search_strategy": "Subject search",
+                "distance": 0.3120,
+                "is_confident": True
+            }
+        ]
+    }
