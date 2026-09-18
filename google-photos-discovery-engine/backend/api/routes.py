@@ -244,7 +244,7 @@ async def test_search(request: Request, query_data: SearchQuery):
         from api.mock_data import mock_search_response
         return mock_search_response(query_data.query)
         
-    SIMILARITY_THRESHOLD = 0.35
+    SIMILARITY_THRESHOLD = 0.45
 
     # Attempt embedding with Gemini
     api_key = os.getenv("GEMINI_API_KEY")

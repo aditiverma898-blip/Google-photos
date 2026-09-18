@@ -8,11 +8,11 @@ import './TestDrive.css';
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://google-photos.onrender.com/api';
 
 const SAMPLE_COMPLAINT_QUERIES = [
-  { label: "Can't find old dog pictures from 2018", desc: "Broken Search" },
-  { label: "Cloud backup photos disappeared after update", desc: "Missing Cloud Albums" },
-  { label: "Face grouping stopped working and mixed up people", desc: "Face Tagging" },
-  { label: "Searching for 'Car Engine' gives random photos", desc: "Object & Text" },
-  { label: "Timeline sorts by upload date instead of capture date", desc: "Date Indexing" },
+  { label: "The video where my dog was barking at the TV", desc: "Action & Event" },
+  { label: "Photos from a few days after my birthday", desc: "Relative Time" },
+  { label: "I know she was holding a blue coffee mug", desc: "Background Object" },
+  { label: "I'm looking for a rainy day at a cafe", desc: "Aesthetic & Weather" },
+  { label: "A screenshot of a funny meme about cats", desc: "Abstract Concept" },
 ];
 
 export default function TestDrive() {
@@ -99,7 +99,7 @@ export default function TestDrive() {
                   <span className="match-title">{complaintResults.nearest_cluster.label}</span>
                   <p>{complaintResults.nearest_cluster.description}</p>
                   <div className="distance-badge success">
-                    Distance: {complaintResults.nearest_cluster.distance.toFixed(4)} (Threshold: &le; 0.35)
+                    Distance: {complaintResults.nearest_cluster.distance.toFixed(4)} (Threshold: &le; {complaintResults.threshold})
                   </div>
                   <button 
                     className="btn-primary view-btn"
@@ -116,7 +116,7 @@ export default function TestDrive() {
                   <p>
                     This query does not match any of the 4 tracked failure clusters with high confidence.
                     {complaintResults.nearest_cluster && (
-                      <span> The closest is <strong>{complaintResults.nearest_cluster.label}</strong> with distance <code>{complaintResults.nearest_cluster.distance.toFixed(4)}</code>, which exceeds the 0.35 threshold.</span>
+                      <span> The closest is <strong>{complaintResults.nearest_cluster.label}</strong> with distance <code>{complaintResults.nearest_cluster.distance.toFixed(4)}</code>, which exceeds the {complaintResults.threshold} threshold.</span>
                     )}
                   </p>
                   <div className="attribute-hint-box">
@@ -131,7 +131,7 @@ export default function TestDrive() {
               {!complaintResults.is_confident_match && (
                 <div className="amber-low-confidence-banner">
                   <div className="banner-title">⚠️ Closest Available Reference (Low Confidence)</div>
-                  <p>No historical complaints met the 0.35 similarity cutoff for this query. The records below are shown for reference only and are likely unrelated.</p>
+                  <p>No historical complaints met the {complaintResults.threshold} similarity cutoff for this query. The records below are shown for reference only and are likely unrelated.</p>
                 </div>
               )}
               <div className="records-list">
