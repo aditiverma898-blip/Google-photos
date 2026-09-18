@@ -1,0 +1,2 @@
+# This directory stores raw scraped data from Reddit.
+# Files are in .jsonl format and are gitignored.

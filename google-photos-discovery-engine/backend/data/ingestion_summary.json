@@ -1,0 +1,52 @@
+{
+  "timestamp": "2026-09-18T08:31:31.902510+00:00",
+  "total_records": 3002,
+  "total_skipped_short": 157,
+  "total_skipped_dup": 1332,
+  "total_batches": 7,
+  "duration_seconds": 2529.1,
+  "per_source": [
+    {
+      "source": "reddit",
+      "records_scraped": 0,
+      "records_skipped_short": 0,
+      "records_skipped_dup": 0,
+      "batches_written": 0,
+      "output_files": [],
+      "duration_seconds": 64.6
+    },
+    {
+      "source": "appstore",
+      "records_scraped": 0,
+      "error": "type object 'Sort' has no attribute 'MOST_HELPFUL'",
+      "duration_seconds": 0
+    },
+    {
+      "source": "helpforum",
+      "records_scraped": 2,
+      "records_skipped_short": 0,
+      "records_skipped_dup": 1278,
+      "batches_written": 1,
+      "output_files": [
+        "C:\\Users\\aditi\\OneDrive\\Desktop\\GOOGLE PHOTOS\\google-photos-discovery-engine\\backend\\data\\raw\\helpforum\\2026-09-18\\batch_0000.jsonl"
+      ],
+      "duration_seconds": 2529.1
+    },
+    {
+      "source": "youtube",
+      "records_scraped": 3000,
+      "records_skipped_short": 157,
+      "records_skipped_dup": 54,
+      "batches_written": 6,
+      "output_files": [
+        "C:\\Users\\aditi\\OneDrive\\Desktop\\GOOGLE PHOTOS\\google-photos-discovery-engine\\backend\\data\\raw\\youtube\\2026-09-18\\batch_0000.jsonl",
+        "C:\\Users\\aditi\\OneDrive\\Desktop\\GOOGLE PHOTOS\\google-photos-discovery-engine\\backend\\data\\raw\\youtube\\2026-09-18\\batch_0001.jsonl",
+        "C:\\Users\\aditi\\OneDrive\\Desktop\\GOOGLE PHOTOS\\google-photos-discovery-engine\\backend\\data\\raw\\youtube\\2026-09-18\\batch_0002.jsonl",
+        "C:\\Users\\aditi\\OneDrive\\Desktop\\GOOGLE PHOTOS\\google-photos-discovery-engine\\backend\\data\\raw\\youtube\\2026-09-18\\batch_0003.jsonl",
+        "C:\\Users\\aditi\\OneDrive\\Desktop\\GOOGLE PHOTOS\\google-photos-discovery-engine\\backend\\data\\raw\\youtube\\2026-09-18\\batch_0004.jsonl",
+        "C:\\Users\\aditi\\OneDrive\\Desktop\\GOOGLE PHOTOS\\google-photos-discovery-engine\\backend\\data\\raw\\youtube\\2026-09-18\\batch_0005.jsonl"
+      ],
+      "duration_seconds": 1423.1
+    }
+  ]
+}
