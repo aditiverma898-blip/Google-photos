@@ -101,4 +101,34 @@ async def test_search_threshold_gating():
         assert data_out["is_confident_match"] is False
         assert data_out["nearest_cluster"]["distance"] > 0.35
 
+@pytest.mark.asyncio
+async def test_pipeline_funnel_endpoint():
+    """Verify /api/pipeline-funnel returns complete funnel diagnostic numbers."""
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
+        res = await ac.get("/api/pipeline-funnel")
+        assert res.status_code == 200
+        data = res.json()
+        assert "raw_ingested" in data
+        assert data["raw_ingested"]["total"] >= 12000
+        assert "llm_relevance_filter" in data
+        assert "structured_extraction" in data
+        assert "embedding_and_clustering" in data
+        assert "per_cluster_breakdown" in data
+        assert len(data["per_cluster_breakdown"]) == 4
+
+@pytest.mark.asyncio
+async def test_evidence_endpoint():
+    """Verify /api/evidence returns paginated records and counts from 12k+ dataset."""
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
+        res = await ac.get("/api/evidence?limit=10")
+        assert res.status_code == 200
+        data = res.json()
+        assert data["total"] >= 12000
+        assert data["total_corpus"] >= 12000
+        assert len(data["records"]) == 10
+        assert "Play Store" in data["source_counts"]
+        assert "YouTube Comment" in data["source_counts"]
+
+
+
 

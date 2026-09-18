@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { formatSeverity } from '../utils/formatters';
 import SourceBadge from './SourceBadge';
+import ExtractionDetail from './ExtractionDetail';
 import './ClusterCard.css';
 
 export default function ClusterCard({ cluster }) {
@@ -69,6 +70,7 @@ export default function ClusterCard({ cluster }) {
           <p className="quote-preview-text">
             "{sampleQuote.text}"
           </p>
+          <ExtractionDetail record={sampleQuote} />
         </div>
       )}
     </div>

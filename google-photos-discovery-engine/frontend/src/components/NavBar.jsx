@@ -22,7 +22,7 @@ export default function NavBar() {
             to="/test-drive" 
             className={`nav-link ${location.pathname === '/test-drive' ? 'active' : ''}`}
           >
-            Test Drive
+            Test Drive (Classifier)
           </Link>
         </div>
       </div>

@@ -17,8 +17,10 @@ async def _get_active_pool(request: Request):
     if not pool:
         from db.connection import get_pool
         from db.init_db import run_migrations
+        from search.seed_data import seed_discovery_database
         pool = await get_pool()
         await run_migrations(pool)
+        await seed_discovery_database(pool)
         request.app.state.pool = pool
     return pool
 
@@ -329,6 +331,75 @@ async def test_search(request: Request, query_data: SearchQuery):
         from api.mock_data import mock_search_response
         return mock_search_response(query_data.query)
 
+
+# -------------------------------------------------------------
+# Photos Discovery Engine: Hybrid Retrieval & Benchmark Routes
+# -------------------------------------------------------------
+
+class PhotoSearchRequest(BaseModel):
+    query: str
+    user_id: str = "default_user"
+
+@router.post("/photos/search")
+async def search_photos(request: Request, body: PhotoSearchRequest):
+    """
+    Executes hybrid search across face, pet, temporal, spatial, and visual indices
+    with tiered graceful degradation.
+    """
+    pool = await _get_active_pool(request)
+    from search.search_engine import HybridSearchOrchestrator
+    orchestrator = HybridSearchOrchestrator()
+    response = await orchestrator.search(pool, body.query, body.user_id)
+    return response.model_dump()
+
+@router.post("/photos/parse")
+async def parse_photo_query(body: PhotoSearchRequest):
+    """
+    Directly tests the Query Understanding NLU parser.
+    Extracts people, pets, temporal bounds, spatial bounds, and visual residual.
+    """
+    from search.query_understanding import QueryUnderstandingEngine
+    parser = QueryUnderstandingEngine()
+    parsed = parser.parse(body.query)
+    return parsed.model_dump()
+
+@router.get("/photos/benchmark")
+async def get_benchmark_results(request: Request):
+    """
+    Executes the 25-query benchmark test suite across all 4 clusters
+    and returns pass/fail statistics, precision, recall, and latency.
+    """
+    pool = await _get_active_pool(request)
+    from search.benchmark_runner import run_benchmark
+    results = await run_benchmark(pool)
+    return results
+
+@router.get("/photos/catalog")
+async def get_photo_catalog(request: Request):
+    """Returns the indexed photos, people, and pets catalog."""
+    pool = await _get_active_pool(request)
+        
+    async with pool.execute("SELECT * FROM photos ORDER BY captured_at_utc DESC") as cursor:
+        photos = [dict(r) for r in await cursor.fetchall()]
+        for p in photos:
+            p["visual_tags"] = json.loads(p["visual_tags"])
+            
+    async with pool.execute("SELECT * FROM people") as cursor:
+        people = [dict(r) for r in await cursor.fetchall()]
+        for p in people:
+            p["aliases"] = json.loads(p["aliases"])
+            
+    async with pool.execute("SELECT * FROM pets") as cursor:
+        pets = [dict(r) for r in await cursor.fetchall()]
+        for p in pets:
+            p["aliases"] = json.loads(p["aliases"])
+            
+    return {
+        "total_photos": len(photos),
+        "photos": photos,
+        "people": people,
+        "pets": pets
+    }
 
 @router.get("/pipeline-funnel")
 async def get_pipeline_funnel(request: Request):

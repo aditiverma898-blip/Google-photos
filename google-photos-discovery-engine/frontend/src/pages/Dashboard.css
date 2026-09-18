@@ -68,3 +68,58 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+.coverage-section {
+  margin-bottom: 3rem;
+}
+
+.coverage-bar {
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-left: 4px solid var(--accent-secondary);
+}
+
+.coverage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 1rem;
+}
+
+.coverage-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.coverage-total {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.coverage-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.coverage-stat-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.source-name {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.source-count {
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 600;
+}

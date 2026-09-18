@@ -8,19 +8,22 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://google-photos.onre
 export default function Dashboard() {
   const [clusters, setClusters] = useState([]);
   const [synthesis, setSynthesis] = useState([]);
+  const [coverage, setCoverage] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [clustersRes, synthesisRes] = await Promise.all([
+        const [clustersRes, synthesisRes, coverageRes] = await Promise.all([
           axios.get(`${API_BASE_URL}/clusters`),
-          axios.get(`${API_BASE_URL}/synthesis`)
+          axios.get(`${API_BASE_URL}/synthesis`),
+          axios.get(`${API_BASE_URL}/coverage`).catch(() => ({ data: { total_corpus: 0, source_counts: {} } }))
         ]);
         
         const cl = clustersRes.data.clusters || [];
         setClusters(cl);
         setSynthesis(synthesisRes.data.synthesis || []);
+        setCoverage(coverageRes.data);
 
         // Audit missing sources across all cluster sample quotes
         let totalQuotes = 0;
@@ -90,6 +93,27 @@ export default function Dashboard() {
                 )}
               </div>
             ))}
+          </div>
+        </section>
+      )}
+
+      {coverage && coverage.total_corpus > 0 && (
+        <section className="coverage-section">
+          <div className="coverage-bar glass-panel">
+            <div className="coverage-header">
+              <h3>Source Coverage</h3>
+              <span className="coverage-total">{coverage.total_corpus} complaints across {Object.keys(coverage.source_counts || {}).length} sources</span>
+            </div>
+            <div className="coverage-stats">
+              {Object.entries(coverage.source_counts || {})
+                .sort((a, b) => b[1] - a[1])
+                .map(([source, count]) => (
+                <div key={source} className="coverage-stat-item">
+                  <span className="source-name">{source}:</span>
+                  <span className="source-count">{count}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       )}
