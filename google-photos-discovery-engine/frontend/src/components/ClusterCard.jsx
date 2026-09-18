@@ -41,9 +41,13 @@ export default function ClusterCard({ cluster }) {
       <p className="cluster-description">{cluster.description}</p>
       
       <div className="cluster-stats">
-        <div className="stat-item">
-          <span className="stat-value">{cluster.record_count}</span>
-          <span className="stat-label">Complaints</span>
+        <div className="stat-item stat-item-breakdown" style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-start' }}>
+          <span className="stat-label" style={{ marginBottom: '4px' }}>Complaints Verification</span>
+          <div style={{ display: 'flex', gap: '8px', fontSize: '13px' }}>
+            <span style={{ color: '#4ade80' }} title="Confirmed Relevant">✓ {cluster.confirmed_relevant || 0}</span>
+            <span style={{ color: '#f87171' }} title="Confirmed Irrelevant">✗ {cluster.confirmed_irrelevant || 0}</span>
+            <span style={{ color: '#9ca3af' }} title="Unverified">? {cluster.unverified || 0}</span>
+          </div>
         </div>
         <div className="stat-item">
           <span className="stat-value">{formatSeverity(cluster.severity_score)}</span>

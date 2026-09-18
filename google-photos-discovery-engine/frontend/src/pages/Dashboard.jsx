@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import ClusterCard from '../components/ClusterCard';
 import './Dashboard.css';
 
@@ -134,9 +135,24 @@ export default function Dashboard() {
             <div className="error-state glass-panel" style={{ color: 'var(--text-secondary)', padding: '2rem', textAlign: 'center' }}>Failed to load source coverage data.</div>
           ) : (
             <div className="coverage-bar glass-panel">
-              <div className="coverage-header">
-                <h3>Source Coverage</h3>
-                <span className="coverage-total">{coverage.total_corpus} complaints across {Object.keys(coverage.source_counts || {}).length} sources</span>
+              <div className="coverage-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
+                <div style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap' }}>
+                  <div>
+                    <h3 style={{ fontSize: '1.1rem', marginBottom: '0.2rem', color: 'var(--text-secondary)' }}>Raw Items Ingested</h3>
+                    <div style={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>
+                      {coverage.total_corpus.toLocaleString()} <span style={{ fontSize: '0.9rem', fontWeight: 'normal', color: 'var(--text-secondary)' }}>across {Object.keys(coverage.source_counts || {}).length} sources</span>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '1.1rem', marginBottom: '0.2rem', color: 'var(--accent-color, #c4b5fd)' }}>Relevant Complaints (Post-Filter)</h3>
+                    <div style={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--accent-color, #c4b5fd)' }}>
+                      {coverage.relevant_complaints ? coverage.relevant_complaints.toLocaleString() : 0}
+                    </div>
+                  </div>
+                </div>
+                <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', maxWidth: '280px', textAlign: 'right', marginTop: '0.5rem' }}>
+                  💡 Not all raw items describe a specific retrieval failure — <Link to="/funnel" style={{ color: 'var(--accent-color, #c4b5fd)', textDecoration: 'underline' }}>see filtering funnel for details.</Link>
+                </div>
               </div>
               <div className="coverage-stats">
                 {Object.entries(coverage.source_counts || {})

@@ -50,23 +50,8 @@ async def get_clusters(request: Request):
     if not pool:
         return {"clusters": []}
         
-    # Preload quote to source mapping from feedback_records
-    quote_source_map = {}
-    try:
-        async with pool.execute("SELECT raw_text, source, source_platform, id, remembered_attributes, forgotten_attributes, search_strategy, failure_point, workaround, emotional_signal FROM feedback_records") as cursor:
-            fb_rows = await cursor.fetchall()
-            for f in fb_rows:
-                f_dict = dict(f)
-                canon = f_dict.get("source") or canonicalize_source(f_dict.get("source_platform"))
-                f_dict["source"] = canon
-                quote_source_map[f_dict["raw_text"]] = f_dict
-    except Exception as e:
-        logger.warning(f"Could not load quote_source_map: {e}")
-
     async with pool.execute("""
-        SELECT cluster_id, label, description, record_count, 
-               source_diversity, severity_score, top_failure_points, 
-               representative_quotes
+        SELECT cluster_id, label, description, severity_score, top_failure_points
         FROM clusters
         ORDER BY severity_score DESC
     """) as cursor:
@@ -76,58 +61,72 @@ async def get_clusters(request: Request):
     missing_source_count = 0
     for r in rows:
         c = dict(r)
-        c['source_diversity'] = json.loads(c['source_diversity'])
-        c['top_failure_points'] = json.loads(c['top_failure_points'])
-        raw_quotes = json.loads(c['representative_quotes'])
-        formatted_quotes = []
+        c['top_failure_points'] = json.loads(c.get('top_failure_points', '[]'))
+        cid = c['cluster_id']
         
-        for q in raw_quotes:
-            if isinstance(q, dict):
-                text = q.get("quote") or q.get("text")
-                if not text:
-                    logger.warning(f"[Schema Mismatch] Representative quote missing both 'quote' and 'text' keys. Raw record: {q}")
-                    text = ""
-            else:
-                text = q
-                
-            match_info = quote_source_map.get(text)
+        # 1. Real Record Count and Relevance states
+        async with pool.execute("""
+            SELECT count(*), 
+                   SUM(CASE WHEN is_retrieval_relevant = 1 THEN 1 ELSE 0 END),
+                   SUM(CASE WHEN is_retrieval_relevant = 0 THEN 1 ELSE 0 END),
+                   SUM(CASE WHEN is_retrieval_relevant IS NULL THEN 1 ELSE 0 END)
+            FROM feedback_records WHERE cluster_id = ?
+        """, (cid,)) as cursor:
+            row = await cursor.fetchone()
+            c['record_count'] = row[0]
+            c['confirmed_relevant'] = row[1] or 0
+            c['confirmed_irrelevant'] = row[2] or 0
+            c['unverified'] = row[3] or 0
             
-            if not match_info and text:
-                for raw, info in quote_source_map.items():
-                    if text in raw:
-                        match_info = info
-                        break
-
-            if isinstance(q, dict):
-                src = match_info.get("source") if match_info else (q.get("source") or canonicalize_source(q.get("source_platform")))
-                qid = match_info.get("id") if match_info else q.get("id")
-            else:
-                src = match_info.get("source") if match_info else None
-                qid = match_info.get("id") if match_info else None
-                
-            if not src:
+        # 2. Real Source Diversity
+        async with pool.execute("SELECT source, source_platform, count(*) as cnt FROM feedback_records WHERE cluster_id = ? GROUP BY source, source_platform", (cid,)) as cursor:
+            src_rows = await cursor.fetchall()
+            
+        s_div = {}
+        for sr in src_rows:
+            canon = sr[0] or canonicalize_source(sr[1])
+            if canon:
+                s_div[canon] = s_div.get(canon, 0) + sr[2]
+        
+        # Calculate percentages for the frontend
+        total_cluster_records = sum(s_div.values()) or 1
+        s_div_percentages = {s: round((cnt / total_cluster_records) * 100, 1) for s, cnt in s_div.items()}
+        c['source_diversity'] = s_div_percentages
+        
+        # 3. Representative Quotes
+        async with pool.execute("""
+            SELECT id, raw_text, source, source_platform, remembered_attributes, 
+                   forgotten_attributes, search_strategy, failure_point, workaround, 
+                   emotional_signal 
+            FROM feedback_records 
+            WHERE cluster_id = ? AND length(raw_text) > 40 
+            LIMIT 3
+        """, (cid,)) as cursor:
+            quote_rows = await cursor.fetchall()
+            
+        formatted_quotes = []
+        for qr in quote_rows:
+            qr_dict = dict(qr)
+            canon = qr_dict.get("source") or canonicalize_source(qr_dict.get("source_platform"))
+            
+            if not canon:
                 missing_source_count += 1
-                logger.warning(f"[Missing Source] Complaint quote in cluster #{c['cluster_id']} has no source: '{text[:60]}...'. Flagged for backfill.")
-
-            quote_obj = {
-                "id": qid,
-                "text": text,
-                "source": src,
-                "cluster_id": c['cluster_id'],
+                logger.warning(f"[Missing Source] Complaint quote in cluster #{cid} has no source: '{qr_dict.get('raw_text', '')[:60]}...'. Flagged for backfill.")
+                
+            formatted_quotes.append({
+                "id": qr_dict.get("id"),
+                "text": qr_dict.get("raw_text"),
+                "source": canon,
+                "cluster_id": cid,
                 "cluster_label": c['label'],
-                "severity_score": c['severity_score']
-            }
-            if match_info:
-                quote_obj.update({
-                    "remembered_attributes": match_info.get("remembered_attributes"),
-                    "forgotten_attributes": match_info.get("forgotten_attributes"),
-                    "search_strategy": match_info.get("search_strategy"),
-                    "failure_point": match_info.get("failure_point"),
-                    "workaround": match_info.get("workaround"),
-                    "emotional_signal": match_info.get("emotional_signal")
-                })
-
-            formatted_quotes.append(quote_obj)
+                "severity_score": c['severity_score'],
+                "remembered_attributes": qr_dict.get("remembered_attributes"),
+                "forgotten_attributes": qr_dict.get("forgotten_attributes"),
+                "search_strategy": qr_dict.get("search_strategy"),
+                "failure_point": qr_dict.get("failure_point"),
+                "workaround": qr_dict.get("workaround"),
+                "emotional_signal": qr_dict.get("emotional_signal")
+            })
             
         c['representative_quotes'] = formatted_quotes
         clusters.append(c)
@@ -193,9 +192,13 @@ async def get_coverage(request: Request):
             if canon:
                 source_counts[canon] = source_counts.get(canon, 0) + cnt
             
+    async with pool.execute("SELECT SUM(CASE WHEN is_retrieval_relevant = 1 THEN 1 ELSE 0 END) FROM feedback_records") as cursor:
+        relevant_complaints = (await cursor.fetchone())[0] or 0
+        
     return {
         "total_corpus": sum(source_counts.values()),
-        "source_counts": source_counts
+        "source_counts": source_counts,
+        "relevant_complaints": relevant_complaints
     }
 
 @router.get("/synthesis")
