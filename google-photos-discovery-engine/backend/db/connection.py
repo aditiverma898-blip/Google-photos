@@ -27,9 +27,12 @@ async def get_pool() -> aiosqlite.Connection:
         
         # Load sqlite-vec extension synchronously to the underlying connection
         await _conn.execute("SELECT 1") # Ensure connected
-        _conn._conn.enable_load_extension(True)
-        sqlite_vec.load(_conn._conn)
-        _conn._conn.enable_load_extension(False)
+        try:
+            _conn._conn.enable_load_extension(True)
+            sqlite_vec.load(_conn._conn)
+            _conn._conn.enable_load_extension(False)
+        except AttributeError:
+            print("Warning: sqlite3 build does not support extension loading. sqlite-vec skipped.")
         
     return _conn
 
