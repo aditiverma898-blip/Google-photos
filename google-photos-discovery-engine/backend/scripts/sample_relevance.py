@@ -34,23 +34,8 @@ def setup_sample(db):
     # Process all of Cluster 0
     db.execute("UPDATE feedback_records SET is_sample_target = 1 WHERE cluster_id = 0")
     
-    # Stratified proportional sampling for clusters 1-5 (target ~2500)
-    clusters = db.execute("SELECT cluster_id, COUNT(*) FROM feedback_records WHERE cluster_id BETWEEN 1 AND 5 GROUP BY cluster_id").fetchall()
-    total_active = sum(c[1] for c in clusters)
-    
-    if total_active > 0:
-        for cid, count in clusters:
-            limit = int(round((count / total_active) * 2500))
-            if limit > 0:
-                # Update limit random rows for this cluster
-                db.execute(f"""
-                    UPDATE feedback_records SET is_sample_target = 1 
-                    WHERE id IN (
-                        SELECT id FROM feedback_records 
-                        WHERE cluster_id = ? 
-                        ORDER BY RANDOM() LIMIT ?
-                    )
-                """, (cid, limit))
+    # Process all of Clusters 1-5 (removed artificial 2500 cap)
+    db.execute("UPDATE feedback_records SET is_sample_target = 1 WHERE cluster_id BETWEEN 1 AND 5")
     
     db.commit()
     target_count = db.execute("SELECT COUNT(*) FROM feedback_records WHERE is_sample_target = 1").fetchone()[0]

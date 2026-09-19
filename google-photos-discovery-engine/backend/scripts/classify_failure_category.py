@@ -40,6 +40,13 @@ You must classify each user complaint into EXACTLY ONE of two categories:
      * "Somehow you guys decided to purge my whole 2020 year of pictures and videos, I tried to stop it and my screen went black. And all my videos are gone now" -> data_loss_sync
      * "Shared album photos went missing after user deleted them from their phone even after I backed up" -> data_loss_sync
      * "Be careful with this app. If you have important photos don't trust it to back it up on the cloud and remove it from your device" -> data_loss_sync
+
+3. 'none_other':
+   - The complaint does not fit clearly into either of the above categories, or is too vague to classify, or is completely unrelated to photo retrieval/sync loss.
+   - Examples:
+     * "App is slow" -> none_other
+     * "Why does this cost so much" -> none_other
+     * "I hate the new update" -> none_other
 """
 
 CLASSIFY_SCHEMA = {
@@ -50,11 +57,12 @@ CLASSIFY_SCHEMA = {
             "id": {"type": "INTEGER"},
             "failure_category": {
                 "type": "STRING",
-                "enum": ["vague_memory_retrieval", "data_loss_sync"]
+                "enum": ["vague_memory_retrieval", "data_loss_sync", "none_other"]
             },
-            "rationale": {"type": "STRING"}
+            "confidence": {"type": "NUMBER"},
+            "reason": {"type": "STRING"}
         },
-        "required": ["id", "failure_category"]
+        "required": ["id", "failure_category", "confidence", "reason"]
     }
 }
 
@@ -69,7 +77,7 @@ def classify_batch(client, records: list[dict], max_retries: int = 3) -> list[di
     for r in records:
         items_text += f"Record ID: {r['id']}\nComplaint: \"{r['raw_text']}\"\n\n"
 
-    prompt = f"Classify the following {len(records)} user complaints into either 'vague_memory_retrieval' or 'data_loss_sync':\n\n{items_text}"
+    prompt = f"Classify the following {len(records)} user complaints into 'vague_memory_retrieval', 'data_loss_sync', or 'none_other':\n\n{items_text}"
 
     for attempt in range(max_retries):
         try:
@@ -107,7 +115,7 @@ def classify_batch(client, records: list[dict], max_retries: int = 3) -> list[di
             cat = "data_loss_sync"
         else:
             cat = "vague_memory_retrieval"
-        fallback_results.append({"id": r['id'], "failure_category": cat, "reasoning": "Heuristic criteria match fallback"})
+        fallback_results.append({"id": r['id'], "failure_category": cat, "reason": "Heuristic criteria match fallback", "confidence": 0.1})
     return fallback_results
 
 def run_classification():
@@ -151,8 +159,13 @@ def run_classification():
         for res in results:
             rid = res.get("id")
             cat = res.get("failure_category")
-            if rid and cat in ("vague_memory_retrieval", "data_loss_sync"):
-                cursor.execute("UPDATE feedback_records SET failure_category = ? WHERE id = ?", (cat, rid))
+            conf = res.get("confidence")
+            reason = res.get("reason")
+            if rid and cat in ("vague_memory_retrieval", "data_loss_sync", "none_other"):
+                cursor.execute(
+                    "UPDATE feedback_records SET failure_category = ?, classification_confidence = ?, classification_reason = ? WHERE id = ?", 
+                    (cat, conf, reason, rid)
+                )
 
         conn.commit()
         processed += len(b)

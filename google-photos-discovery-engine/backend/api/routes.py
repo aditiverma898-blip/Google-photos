@@ -71,7 +71,8 @@ async def get_clusters(request: Request):
                    SUM(CASE WHEN is_retrieval_relevant = 0 THEN 1 ELSE 0 END),
                    SUM(CASE WHEN is_retrieval_relevant IS NULL THEN 1 ELSE 0 END),
                    SUM(CASE WHEN is_retrieval_relevant = 1 AND failure_category = 'vague_memory_retrieval' THEN 1 ELSE 0 END),
-                   SUM(CASE WHEN is_retrieval_relevant = 1 AND failure_category = 'data_loss_sync' THEN 1 ELSE 0 END)
+                   SUM(CASE WHEN is_retrieval_relevant = 1 AND failure_category = 'data_loss_sync' THEN 1 ELSE 0 END),
+                   SUM(CASE WHEN is_retrieval_relevant = 1 AND failure_category = 'none_other' THEN 1 ELSE 0 END)
             FROM feedback_records WHERE cluster_id = ?
         """, (cid,)) as cursor:
             row = await cursor.fetchone()
@@ -81,6 +82,7 @@ async def get_clusters(request: Request):
             c['unverified'] = row[3] or 0
             c['vague_memory_count'] = row[4] or 0
             c['data_loss_count'] = row[5] or 0
+            c['none_other_count'] = row[6] or 0
             
         if cid == 0:
             c['primary_category'] = 'data_loss_sync'
@@ -109,6 +111,7 @@ async def get_clusters(request: Request):
                    emotional_signal 
             FROM feedback_records 
             WHERE cluster_id = ? AND length(raw_text) > 40 
+            ORDER BY classification_confidence DESC
             LIMIT 3
         """, (cid,)) as cursor:
             quote_rows = await cursor.fetchall()

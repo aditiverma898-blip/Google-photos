@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ClusterCard from '../components/ClusterCard';
@@ -86,6 +86,70 @@ export default function Dashboard() {
     
     fetchData();
   }, []);
+
+  // Calculate if counts are fully reconciled
+  const countsReconciled = useMemo(() => {
+    if (clusters.length === 0) return false;
+    for (const c of clusters) {
+      if (c.unverified > 0) return false;
+      const verifiedRelevant = c.confirmed_relevant || 0;
+      const sumCats = (c.vague_memory_count || 0) + (c.data_loss_count || 0) + (c.none_other_count || 0);
+      if (verifiedRelevant !== sumCats) return false;
+    }
+    return true;
+  }, [clusters]);
+
+  // Compute insights data
+  const strategicInsights = useMemo(() => {
+    if (!countsReconciled || clusters.length === 0) return null;
+
+    // Rank in-scope clusters by impact
+    const inScopeRanked = clusters
+      .filter(c => c.primary_category === 'vague_memory_retrieval' && !c.is_emerging)
+      .map(c => {
+        const severity = c.severity_score || 0;
+        const volume = c.vague_memory_count || 0;
+        const impactScore = severity * volume;
+        return { ...c, impactScore };
+      })
+      .sort((a, b) => b.impactScore - a.impactScore);
+
+    const emergingClusters = clusters.filter(c => c.is_emerging);
+
+    // Hardcoded opportunity mapping based on cluster IDs
+    const opportunitiesMap = {
+      1: "Index and prioritize prominent background objects in image understanding.",
+      2: "Parse natural language relative dates (e.g. 'last summer', 'after my birthday').",
+      3: "Extract and index weather, mood, and aesthetic metadata from images."
+    };
+
+    const topTakeaways = [];
+    if (inScopeRanked.length > 0) {
+      const topByVol = [...inScopeRanked].sort((a, b) => b.vague_memory_count - a.vague_memory_count)[0];
+      topTakeaways.push(`${topByVol.label} has the most in-scope complaints: ${topByVol.vague_memory_count} out of ${topByVol.confirmed_relevant} verified complaints.`);
+      
+      const topBySeverity = [...inScopeRanked].sort((a, b) => b.severity_score - a.severity_score)[0];
+      topTakeaways.push(`${topBySeverity.label} causes the highest average frustration (severity score: ${(topBySeverity.severity_score).toFixed(2)}).`);
+
+      const totalInScope = inScopeRanked.reduce((sum, c) => sum + c.vague_memory_count, 0);
+      topTakeaways.push(`Across ${inScopeRanked.length} validated clusters, there are ${totalInScope} confirmed instances of users failing to bridge a vague memory gap.`);
+    }
+
+    let playStorePercent = "Unknown";
+    if (coverage && coverage.source_counts) {
+      const play = coverage.source_counts["Play Store"] || 0;
+      const total = coverage.total_corpus || 1;
+      playStorePercent = Math.round((play / total) * 100);
+    }
+
+    return {
+      ranked: inScopeRanked,
+      emerging: emergingClusters,
+      takeaways: topTakeaways,
+      opportunitiesMap,
+      playStorePercent
+    };
+  }, [clusters, countsReconciled, coverage]);
 
   if (loading) {
     return (
@@ -245,6 +309,86 @@ export default function Dashboard() {
           </div>
         </section>
       )}
+
+      {/* Strategic Insights Section */}
+      <section className="synthesis-section strategic-insights-section" style={{ marginTop: '4.5rem' }}>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <h2 style={{ margin: 0 }}>Strategic Insights</h2>
+          <p style={{ color: 'var(--text-secondary)', marginTop: '0.35rem', fontSize: '0.92rem' }}>
+            Data-driven product recommendations prioritized by verified impact score.
+          </p>
+        </div>
+
+        {!countsReconciled ? (
+          <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
+            <div className="spinner" style={{ margin: '0 auto 1.5rem auto', width: '30px', height: '30px' }}></div>
+            <p>Insights compiling: waiting for background verification to reconcile all complaints...</p>
+          </div>
+        ) : strategicInsights && (
+          <div className="insights-container glass-panel" style={{ padding: '2.5rem' }}>
+            <div className="insights-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem' }}>
+              
+              {/* Left Column: Priority Ranking */}
+              <div className="insights-column">
+                <h3 style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem', fontSize: '1.25rem' }}>Priority Ranking</h3>
+                <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
+                  <strong>Impact Score</strong> = Severity × In-Scope Volume
+                </p>
+                <div className="priority-list" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {strategicInsights.ranked.map((c, idx) => (
+                    <div key={c.cluster_id} className="insight-card" style={{ padding: '1.25rem', background: 'rgba(255,255,255,0.03)', borderRadius: '8px', borderLeft: `4px solid var(--accent-primary)` }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                        <strong style={{ fontSize: '1.05rem', color: 'var(--text-primary)' }}>{idx + 1}. {c.label}</strong>
+                        <span style={{ fontWeight: 'bold', color: 'var(--accent-color)', fontSize: '1.1rem' }}>{(c.impactScore).toFixed(1)}</span>
+                      </div>
+                      <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', margin: '0 0 0.75rem 0' }}>
+                        {c.vague_memory_count} in-scope × {c.severity_score.toFixed(2)} severity
+                      </p>
+                      <div style={{ fontSize: '0.9rem', color: '#e2e8f0', background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '6px' }}>
+                        <strong style={{ color: '#c4b5fd' }}>Opportunity:</strong> {strategicInsights.opportunitiesMap[c.cluster_id] || "Investigate product interventions to bridge this specific memory gap."}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Column: Takeaways & Emerging */}
+              <div className="insights-column" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+                
+                <div>
+                  <h3 style={{ color: 'var(--accent-secondary)', marginBottom: '1rem', fontSize: '1.25rem' }}>Top 3 Takeaways</h3>
+                  <ul style={{ paddingLeft: '1.2rem', color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.7', margin: 0 }}>
+                    {strategicInsights.takeaways.map((t, i) => <li key={i} style={{ marginBottom: '0.75rem' }}>{t}</li>)}
+                  </ul>
+                </div>
+                
+                <div>
+                  <h3 style={{ color: '#fbbf24', marginBottom: '1rem', fontSize: '1.25rem' }}>Emerging Watch List</h3>
+                  <div className="emerging-watch-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                    {strategicInsights.emerging.map(c => (
+                      <div key={c.cluster_id} style={{ padding: '1rem', background: 'rgba(245, 158, 11, 0.05)', border: '1px solid rgba(245, 158, 11, 0.2)', borderRadius: '8px' }}>
+                        <strong style={{ color: '#fcd34d' }}>{c.label}</strong>
+                        <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                          Not validated. Only {c.vague_memory_count || c.record_count} verified in-scope records. Requires larger corpus sample.
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div style={{ padding: '1.25rem', background: 'rgba(251, 146, 60, 0.05)', border: '1px dashed rgba(251, 146, 60, 0.3)', borderRadius: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+                  <strong style={{ color: '#fdba74' }}>Out-of-Scope Exclusion:</strong> Data Loss & Sync Defects (like Missing Photos) are critical engineering issues but are completely excluded from the retrieval priority ranking above, as they cannot be solved via search/relevance intelligence.
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)', fontSize: '0.8rem', color: 'var(--text-secondary)', textAlign: 'center' }}>
+              <strong>Caveats:</strong> Analysis based on {coverage ? coverage.total_corpus.toLocaleString() : "---"} total feedback records. Play Store accounts for ~{strategicInsights.playStorePercent}% of data, meaning results may skew toward Android user behavior.
+            </div>
+          </div>
+        )}
+      </section>
+
     </div>
   );
 }

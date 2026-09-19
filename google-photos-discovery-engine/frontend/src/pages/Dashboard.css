@@ -11,6 +11,7 @@
 
 .synthesis-section {
   margin-bottom: 4rem;
+  scroll-margin-top: 120px;
 }
 
 .synthesis-grid {
@@ -71,6 +72,7 @@
 
 .coverage-section {
   margin-bottom: 3rem;
+  scroll-margin-top: 120px;
 }
 
 .coverage-bar {
