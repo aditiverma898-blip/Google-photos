@@ -140,7 +140,7 @@ async def get_clusters(request: Request):
                 "emotional_signal": qr_dict.get("emotional_signal")
             })
             
-        c['is_emerging'] = (c.get('record_count', 0) <= 5 or cid in (4, 5))
+        c['is_emerging'] = (c.get('record_count', 0) <= 5 or cid in (3, 4, 5))
         c['representative_quotes'] = formatted_quotes
         clusters.append(c)
         
@@ -327,9 +327,18 @@ async def test_search(request: Request, query_data: SearchQuery):
                     c_dict["distance"] = round(dist, 4)
                     nearest_cluster = c_dict
 
-        is_confident_match = bool(
-            nearest_cluster and nearest_cluster.get("distance", 1.0) <= SIMILARITY_THRESHOLD
-        )
+        if nearest_cluster:
+            min_dist = nearest_cluster.get("distance", 1.0)
+            if nearest_cluster.get("cluster_id") == 0 and min_dist <= 0.55:
+                match_status = "Out of scope: data loss"
+            elif min_dist <= SIMILARITY_THRESHOLD:
+                match_status = "Confident Match"
+            elif min_dist <= 0.55:
+                match_status = "Possible match"
+            else:
+                match_status = "Out-of-domain"
+        else:
+            match_status = "Out-of-domain"
 
         # 3. Find Top 5 Similar Records (Cosine Distance via NumPy)
         async with pool.execute("SELECT id, cluster_id, source, source_platform, raw_text, remembered_attributes, forgotten_attributes, search_strategy, failure_point, workaround, emotional_signal, embedding FROM feedback_records WHERE embedding IS NOT NULL") as cursor:
@@ -363,7 +372,7 @@ async def test_search(request: Request, query_data: SearchQuery):
 
         return {
             "query": query_data.query,
-            "is_confident_match": is_confident_match,
+            "match_status": match_status,
             "threshold": SIMILARITY_THRESHOLD,
             "nearest_cluster": nearest_cluster,
             "similar_records": similar_records

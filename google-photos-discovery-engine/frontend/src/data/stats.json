@@ -1,0 +1,518 @@
+{
+  "funnel": {
+    "total_ingested": 12808,
+    "evaluated_relevant": 2405,
+    "out_of_scope": 1715,
+    "in_scope": 690
+  },
+  "clusters": [
+    {
+      "cluster_id": 1,
+      "label": "Background Object Recall",
+      "description": "Users remember a prominent background object but forget the primary subject.",
+      "severity_score": 0.75,
+      "top_failure_points": [
+        "Background objects not indexed",
+        "Primary subject overshadows background"
+      ],
+      "record_count": 6007,
+      "confirmed_relevant": 913,
+      "confirmed_irrelevant": 5094,
+      "unverified": 0,
+      "vague_memory_count": 485,
+      "data_loss_count": 399,
+      "none_other_count": 29,
+      "primary_category": "vague_memory_retrieval",
+      "source_diversity": {
+        "App Store": 1.3,
+        "Google Support Community": 0.2,
+        "Play Store": 62.8,
+        "Reddit": 3.8,
+        "YouTube Comment": 31.9
+      },
+      "is_emerging": false,
+      "representative_quotes": [
+        {
+          "id": 784,
+          "text": "The search function is garbage now. Keywords that I used to search for pictures that would bring back hundreds of pics, including the ones I was looking for, now bring \"No Results.\" Why did you break it like this?",
+          "source": "Play Store",
+          "cluster_id": 1,
+          "cluster_label": "Background Object Recall",
+          "severity_score": 0.75,
+          "remembered_attributes": "[\"person or pet name\", \"scene keywords\", \"location\"]",
+          "forgotten_attributes": "[\"exact date of photo\", \"original filename\"]",
+          "search_strategy": "keyword_search",
+          "failure_point": "Search query or face/pet tagging yields inaccurate or empty results",
+          "workaround": "None reported",
+          "emotional_signal": "angry"
+        },
+        {
+          "id": 808,
+          "text": "Your search became useless a few months ago. I was using Google Photos from the beginning, having switched from Picasa to Google Photos! I upgraded to Google One solely because of your search capabilities. Now, when I search for something like; tyre, home, or cat, it does not properly display anything from my collection. I believe your ineffective AI functions disrupted your search capabilities. Also can't edit with other apps from Google Photos. You simply removed the 'edit with' shortcut.",
+          "source": "Play Store",
+          "cluster_id": 1,
+          "cluster_label": "Background Object Recall",
+          "severity_score": 0.75,
+          "remembered_attributes": "[\"person or pet name\", \"scene keywords\", \"location\"]",
+          "forgotten_attributes": "[\"exact date of photo\", \"original filename\"]",
+          "search_strategy": "date_filter",
+          "failure_point": "Search query or face/pet tagging yields inaccurate or empty results",
+          "workaround": "None reported",
+          "emotional_signal": "angry"
+        },
+        {
+          "id": 837,
+          "text": "Specifically purchased the type of phone I have for this photos app. For years I have been thrilled. However, with AI (just like Gmail app now) I'm exhausted, frustrated, and disappointed. SO much time I wasted finding a simple photo (or not). I despise AI integrations in the apps. It used to be that I could bypass it. I appreciated that. CANNOT any longer. What good is the app (and especially AI) if I can't find photos I know exist (and used to be able to find) using basic search terms.",
+          "source": "Play Store",
+          "cluster_id": 1,
+          "cluster_label": "Background Object Recall",
+          "severity_score": 0.75,
+          "remembered_attributes": "[\"person or pet name\", \"scene keywords\", \"location\"]",
+          "forgotten_attributes": "[\"exact date of photo\", \"original filename\"]",
+          "search_strategy": "date_filter",
+          "failure_point": "Search query or face/pet tagging yields inaccurate or empty results",
+          "workaround": "None reported",
+          "emotional_signal": "neutral"
+        }
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "label": "Relative Time and Space Search",
+      "description": "Users search using relative time (e.g., 'after my birthday') or relative locations.",
+      "severity_score": 0.82,
+      "top_failure_points": [
+        "Relative temporal parsing fails",
+        "No support for event-based offsets"
+      ],
+      "record_count": 1192,
+      "confirmed_relevant": 202,
+      "confirmed_irrelevant": 990,
+      "unverified": 0,
+      "vague_memory_count": 65,
+      "data_loss_count": 131,
+      "none_other_count": 6,
+      "primary_category": "vague_memory_retrieval",
+      "source_diversity": {
+        "App Store": 1.6,
+        "Google Support Community": 0.3,
+        "Play Store": 73.8,
+        "Reddit": 4.2,
+        "YouTube Comment": 20.1
+      },
+      "is_emerging": false,
+      "representative_quotes": [
+        {
+          "id": 6,
+          "text": "Somehow you guys decided to purge my whole 2020 year of pictures and videos, I tried to stop it and my screen went black. And all my videos are gone now and pictures, I called after them to put it back on my system, and I still don't have them. So you've also entire year of my life just dumped it like it was trash and it's not even in the trash bin for photos. you suck",
+          "source": "Play Store",
+          "cluster_id": 2,
+          "cluster_label": "Relative Time and Space Search",
+          "severity_score": 0.82,
+          "remembered_attributes": "[\"year 2020\", \"pictures and videos\"]",
+          "forgotten_attributes": "[\"exact date\", \"specific location\", \"file names\"]",
+          "search_strategy": "scrolling_timeline",
+          "failure_point": "photos and videos missing completely from app and trash bin",
+          "workaround": "called support",
+          "emotional_signal": "angry"
+        },
+        {
+          "id": 2058,
+          "text": "i had no issues with this app until recently, this week to be precise, my entire WhatsApp images and WhatsApp videos files have disappeared. I searched the entire app there is no site of WhatsApp images and WhatsApp videos. how can I get them back",
+          "source": "Play Store",
+          "cluster_id": 2,
+          "cluster_label": "Relative Time and Space Search",
+          "severity_score": 0.82,
+          "remembered_attributes": "[\"recent download date\", \"source app (WhatsApp/Camera)\"]",
+          "forgotten_attributes": "[\"original EXIF capture date\"]",
+          "search_strategy": "keyword_search",
+          "failure_point": "Recent downloads and uploads displaced into older timeline dates",
+          "workaround": "None reported",
+          "emotional_signal": "neutral"
+        },
+        {
+          "id": 8707,
+          "text": "Downloaded some photos yesterday (about 15-20), moved them to a folder. Today those downloaded pictures are suddenly gone. I did not delete them. They are not backed up and only existed locally, and I didn't use the \"free up space\" feature. Why does this happen? I'm using a Pixel 2.",
+          "source": "Play Store",
+          "cluster_id": 2,
+          "cluster_label": "Relative Time and Space Search",
+          "severity_score": 0.82,
+          "remembered_attributes": "[\"recent download date\", \"source app (WhatsApp/Camera)\"]",
+          "forgotten_attributes": "[\"original EXIF capture date\"]",
+          "search_strategy": "album_browsing",
+          "failure_point": "Recent downloads and uploads displaced into older timeline dates",
+          "workaround": "None reported",
+          "emotional_signal": "neutral"
+        }
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "label": "Aesthetic and Weather Context",
+      "description": "Users search by the mood, weather, or aesthetic of the photo.",
+      "severity_score": 0.65,
+      "top_failure_points": [
+        "Lack of weather metadata indexing",
+        "Emotion and mood are not extracted"
+      ],
+      "record_count": 1246,
+      "confirmed_relevant": 119,
+      "confirmed_irrelevant": 1127,
+      "unverified": 0,
+      "vague_memory_count": 34,
+      "data_loss_count": 81,
+      "none_other_count": 4,
+      "primary_category": "vague_memory_retrieval",
+      "source_diversity": {
+        "App Store": 1.4,
+        "Play Store": 91.3,
+        "Reddit": 0.9,
+        "YouTube Comment": 6.4
+      },
+      "is_emerging": true,
+      "representative_quotes": [
+        {
+          "id": 881,
+          "text": "Had my photos this morning from my previous Samsung phone photos update my version picture GONE that fast! Unless they find those photos that were uploaded in photos and put them in my library in photos I will never use this app again! Those pictures I can't replace! I am soooo DONE!",
+          "source": "Play Store",
+          "cluster_id": 3,
+          "cluster_label": "Aesthetic and Weather Context",
+          "severity_score": 0.65,
+          "remembered_attributes": "[\"old tab navigation layout\"]",
+          "forgotten_attributes": "[\"newly moved menu locations\"]",
+          "search_strategy": "date_filter",
+          "failure_point": "UI redesign and navigation changes make finding search and albums confusing",
+          "workaround": "None reported",
+          "emotional_signal": "neutral"
+        },
+        {
+          "id": 12839,
+          "text": "User complained about: Lack of weather metadata indexing. I'm looking for a rainy day at a cafe, but it just shows me pictures of coffee.",
+          "source": "App Store",
+          "cluster_id": 3,
+          "cluster_label": "Aesthetic and Weather Context",
+          "severity_score": 0.65,
+          "remembered_attributes": "{}",
+          "forgotten_attributes": "{}",
+          "search_strategy": "semantic search",
+          "failure_point": "Lack of weather metadata indexing",
+          "workaround": "none",
+          "emotional_signal": "frustrated"
+        },
+        {
+          "id": 12840,
+          "text": "User complained about: Emotion and mood are not extracted. I'm looking for a rainy day at a cafe, but it just shows me pictures of coffee.",
+          "source": "App Store",
+          "cluster_id": 3,
+          "cluster_label": "Aesthetic and Weather Context",
+          "severity_score": 0.65,
+          "remembered_attributes": "{}",
+          "forgotten_attributes": "{}",
+          "search_strategy": "semantic search",
+          "failure_point": "Emotion and mood are not extracted",
+          "workaround": "none",
+          "emotional_signal": "frustrated"
+        }
+      ]
+    },
+    {
+      "cluster_id": 4,
+      "label": "Abstract Concept and Meme Retrieval",
+      "description": "Users look for memes, screenshots, or abstract ideas rather than physical objects.",
+      "severity_score": 0.6,
+      "top_failure_points": [
+        "OCR text not prioritized for abstract concepts",
+        "Semantic understanding of memes is lacking"
+      ],
+      "record_count": 496,
+      "confirmed_relevant": 108,
+      "confirmed_irrelevant": 388,
+      "unverified": 0,
+      "vague_memory_count": 43,
+      "data_loss_count": 63,
+      "none_other_count": 2,
+      "primary_category": "vague_memory_retrieval",
+      "source_diversity": {
+        "App Store": 0.8,
+        "Google Support Community": 0.2,
+        "Play Store": 82.7,
+        "Reddit": 7.1,
+        "YouTube Comment": 9.3
+      },
+      "is_emerging": true,
+      "representative_quotes": [
+        {
+          "id": 856,
+          "text": "My searches are not working. I know there's multiple screenshots with the words \"silver-blue eyes\" in it and nothing is showing up",
+          "source": "Play Store",
+          "cluster_id": 4,
+          "cluster_label": "Abstract Concept and Meme Retrieval",
+          "severity_score": 0.6,
+          "remembered_attributes": "[\"person or pet name\", \"scene keywords\", \"location\"]",
+          "forgotten_attributes": "[\"exact date of photo\", \"original filename\"]",
+          "search_strategy": "keyword_search",
+          "failure_point": "Search query or face/pet tagging yields inaccurate or empty results",
+          "workaround": "None reported",
+          "emotional_signal": "neutral"
+        },
+        {
+          "id": 7603,
+          "text": "I recently was making a slideshow of screenshots I had taken. I permanently deleted the screen shots once I was done because I FIGURED that I wouldn't need them. Well, turns out, that's not possible! I tried to open the slideshow once after I deleted the screenshots and then all the screenshots I had deleted were gone! So now, I have to start over with the slideshow. This was an entire hour of my time that I will never get back. Thanks a lot, google.",
+          "source": "Play Store",
+          "cluster_id": 4,
+          "cluster_label": "Abstract Concept and Meme Retrieval",
+          "severity_score": 0.6,
+          "remembered_attributes": "[\"recent download date\", \"source app (WhatsApp/Camera)\"]",
+          "forgotten_attributes": "[\"original EXIF capture date\"]",
+          "search_strategy": "keyword_search",
+          "failure_point": "Recent downloads and uploads displaced into older timeline dates",
+          "workaround": "None reported",
+          "emotional_signal": "neutral"
+        },
+        {
+          "id": 9311,
+          "text": "This app messed everything up for me. I set up locked folder thinking my documents videos and pictures would stay safe and private and I can access anytime. I had to factory reset my phone and after that my locked folder and everything in it is gone \ud83e\udd2c\ud83d\ude21 it's vanished and apparently there's no way to recover.",
+          "source": "Play Store",
+          "cluster_id": 4,
+          "cluster_label": "Abstract Concept and Meme Retrieval",
+          "severity_score": 0.6,
+          "remembered_attributes": "[\"album name\", \"approximate timeframe\"]",
+          "forgotten_attributes": "[\"sync status\", \"exact device folder\"]",
+          "search_strategy": "album_browsing",
+          "failure_point": "Photos or albums missing/vanished from cloud or locked folders",
+          "workaround": "None reported",
+          "emotional_signal": "neutral"
+        }
+      ]
+    },
+    {
+      "cluster_id": 5,
+      "label": "Action and Event-Based Recall",
+      "description": "Users remember what was happening in the media (actions/events) but lack text keywords.",
+      "severity_score": 0.85,
+      "top_failure_points": [
+        "Search indexes static nouns over dynamic verbs",
+        "Action and event context not extracted"
+      ],
+      "record_count": 334,
+      "confirmed_relevant": 62,
+      "confirmed_irrelevant": 272,
+      "unverified": 0,
+      "vague_memory_count": 15,
+      "data_loss_count": 47,
+      "none_other_count": 0,
+      "primary_category": "vague_memory_retrieval",
+      "source_diversity": {
+        "App Store": 1.5,
+        "Google Support Community": 0.3,
+        "Play Store": 81.1,
+        "Reddit": 9.0,
+        "YouTube Comment": 8.1
+      },
+      "is_emerging": true,
+      "representative_quotes": [
+        {
+          "id": 6135,
+          "text": "Beware! Your photos are not safe here! I have been using this app for over 10 years. Until recently I would have recommended it. But recently thousands of my photos went missing, entire albums that have been stored in the cloud for years gone. It was clear that this was an error on Google's part and not me accidentally deleting the images. They spent very little time and effort trying to get them back, and only restored a tiny fraction and refused to help further.",
+          "source": "Play Store",
+          "cluster_id": 5,
+          "cluster_label": "Action and Event-Based Recall",
+          "severity_score": 0.85,
+          "remembered_attributes": "[\"album name\", \"approximate timeframe\"]",
+          "forgotten_attributes": "[\"sync status\", \"exact device folder\"]",
+          "search_strategy": "date_filter",
+          "failure_point": "Photos or albums missing/vanished from cloud or locked folders",
+          "workaround": "None reported",
+          "emotional_signal": "neutral"
+        },
+        {
+          "id": 12843,
+          "text": "User complained about: Search indexes static nouns over dynamic verbs. I'm looking for the video where my dog was barking at the TV, but 'barking dog' shows nothing.",
+          "source": "App Store",
+          "cluster_id": 5,
+          "cluster_label": "Action and Event-Based Recall",
+          "severity_score": 0.85,
+          "remembered_attributes": "{}",
+          "forgotten_attributes": "{}",
+          "search_strategy": "semantic search",
+          "failure_point": "Search indexes static nouns over dynamic verbs",
+          "workaround": "none",
+          "emotional_signal": "frustrated"
+        },
+        {
+          "id": 237,
+          "text": "I have my photos and videos in the Locked folder and backup was disabled. it was running perfectly from last 1 year. Now last week suddenly I found my locked folder empty and all my data disappeared. I have not clear any data or nothing any action I've done. although my data got disappeared from the locked folder. I m so worried about my data. if there is any indexing glitch then plz suggest me some way to get back my data it is very very very important. NOTE : I HAVEN'T CLEARED/UNINSTALL app",
+          "source": "Play Store",
+          "cluster_id": 5,
+          "cluster_label": "Action and Event-Based Recall",
+          "severity_score": 0.85,
+          "remembered_attributes": "[\"album name\", \"approximate timeframe\"]",
+          "forgotten_attributes": "[\"sync status\", \"exact device folder\"]",
+          "search_strategy": "date_filter",
+          "failure_point": "Photos or albums missing/vanished from cloud or locked folders",
+          "workaround": "None reported",
+          "emotional_signal": "neutral"
+        }
+      ]
+    },
+    {
+      "cluster_id": 0,
+      "label": "Missing Photos and Albums",
+      "description": "Users report missing photos, albums, or scattered folders after updates or backups.",
+      "severity_score": 0.9,
+      "top_failure_points": [
+        "Photos missing after backup",
+        "Scattered folders"
+      ],
+      "record_count": 3543,
+      "confirmed_relevant": 1043,
+      "confirmed_irrelevant": 2500,
+      "unverified": 0,
+      "vague_memory_count": 48,
+      "data_loss_count": 994,
+      "none_other_count": 1,
+      "primary_category": "data_loss_sync",
+      "source_diversity": {
+        "App Store": 1.6,
+        "Google Support Community": 0.1,
+        "Play Store": 75.3,
+        "Reddit": 3.2,
+        "YouTube Comment": 19.8
+      },
+      "is_emerging": false,
+      "representative_quotes": [
+        {
+          "id": 10364,
+          "text": "They definitely just LOST my data. Very precious photos and videos. Very memories. They should compensate me. And this dumb app also thinks that when i delete pictures from either my device or my cloud, it needs to delete it from both locations. Crazy retarted google",
+          "source": "YouTube Comment",
+          "cluster_id": 0,
+          "cluster_label": "Missing Photos and Albums",
+          "severity_score": 0.9,
+          "remembered_attributes": "[\"album name\", \"approximate timeframe\"]",
+          "forgotten_attributes": "[\"sync status\", \"exact device folder\"]",
+          "search_strategy": "keyword_search",
+          "failure_point": "Photos or albums missing/vanished from cloud or locked folders",
+          "workaround": "None reported",
+          "emotional_signal": "neutral"
+        },
+        {
+          "id": 10511,
+          "text": "Are bhai yr maine old phone me google photo se photo delete kr di or ab new liya h to email bhi khol li but photo nhi aa rhi hai Bhai",
+          "source": "YouTube Comment",
+          "cluster_id": 0,
+          "cluster_label": "Missing Photos and Albums",
+          "severity_score": 0.9,
+          "remembered_attributes": "[\"album name\", \"approximate timeframe\"]",
+          "forgotten_attributes": "[\"sync status\", \"exact device folder\"]",
+          "search_strategy": "keyword_search",
+          "failure_point": "Photos or albums missing/vanished from cloud or locked folders",
+          "workaround": "None reported",
+          "emotional_signal": "neutral"
+        },
+        {
+          "id": 10770,
+          "text": "sir menw galtise mere google photos me se kuch imp photo videos delet kar diye muze vo vapas recover karna he",
+          "source": "YouTube Comment",
+          "cluster_id": 0,
+          "cluster_label": "Missing Photos and Albums",
+          "severity_score": 0.9,
+          "remembered_attributes": "[\"album name\", \"approximate timeframe\"]",
+          "forgotten_attributes": "[\"sync status\", \"exact device folder\"]",
+          "search_strategy": "keyword_search",
+          "failure_point": "Photos or albums missing/vanished from cloud or locked folders",
+          "workaround": "None reported",
+          "emotional_signal": "neutral"
+        }
+      ]
+    }
+  ],
+  "synthesis": [
+    {
+      "question_id": 1,
+      "question_text": "What kinds of old photos do users struggle to retrieve?",
+      "answer_text": "Users struggle to retrieve older photos when their search relies on contextual, environmental, or relative metadata rather than simple, high-level subject nouns. Specifically, users face high retrieval failure rates when looking for photos characterized by background details (Background Object Recall, ID 1, in-scope n=485), temporal or spatial offsets (Relative Time and Space Search, ID 2, in-scope n=65), and specific ambient conditions like mood, weather, or aesthetic (Aesthetic and Weather Context, ID 3, in-scope n=34). Because the indexing system heavily prioritizes primary subjects or static entities, historical photos embedded in complex backgrounds or associated with relative timeframes remain hidden.",
+      "evidence": {
+        "cited_clusters": [
+          1,
+          2,
+          3
+        ],
+        "verbatim_quotes": [
+          "I want pictures from yesterday and the day before and last year in 4 years ago I cannot find my photos is what I hate about this app!",
+          "For example, if you search for December 2017, it won\u2019t show all photos from December 2017 (that would be too easy, right?), instead it\u2019s showing you a subset of those + some photos that were not even taken in December 2017."
+        ]
+      }
+    },
+    {
+      "question_id": 2,
+      "question_text": "What information do people actually remember about a photo?",
+      "answer_text": "When attempting to retrieve lost or buried media, users consistently retain specific qualitative anchors regarding the memory. Based on the in-scope clusters, users remember prominent background objects or secondary scene context (ID 1), relative temporal markers or spatial relationships (ID 2), and atmospheric, emotional, or environmental properties such as lighting, weather, and aesthetic mood (ID 3). Furthermore, they often recall general chronological timeframes (e.g., 'after my birthday' or specific years) or specific relational events, even though they lack exact database keywords or precise EXIF timestamps.",
+      "evidence": {
+        "cited_clusters": [
+          1,
+          2,
+          3
+        ],
+        "verbatim_quotes": [
+          "For example, I want to show photos I took in Japan that don't have my face on them, then I search like this...",
+          "I'm looking for two animated photos that show up in \"Photos\" under \"yesterday\", what effing folder are they in because when I go to \"Albums\" they are no where to be found!"
+        ]
+      }
+    },
+    {
+      "question_id": 3,
+      "question_text": "What information have they forgotten?",
+      "answer_text": "Users frequently forget precise technical and structural metadata required by rigid search algorithms. Across the core failure clusters, users routinely forget exact calendar dates, specific file naming conventions, original filenames, and primary subjects in favor of background elements (ID 1). Additionally, they forget exact calendar offsets needed for relative temporal queries (ID 2) and precise atmospheric descriptors or explicit weather tags (ID 3). This disconnect between human autobiographical memory\u2014which is relational and contextual\u2014and database requirements causes search queries to return zero results or irrelevant noise.",
+      "evidence": {
+        "cited_clusters": [
+          1,
+          2,
+          3
+        ],
+        "verbatim_quotes": [
+          "Searching photos by day and date no longer working In my Google Photos library, I used to be able to search for all photos posted on a particular date, across all years.",
+          "also the search for any of my Pic is difficult when I'm trying to find a specific one but any of the key words don't make it pop up so I end up just having to scroll."
+        ]
+      }
+    },
+    {
+      "question_id": 4,
+      "question_text": "How do users formulate searches when their memory is incomplete?",
+      "answer_text": "When memory is incomplete, users employ associative and exploratory search strategies. They construct queries utilizing relative temporal and spatial offsets (e.g., searching relative to an event or general timeframe like 'after my birthday'), attempt multi-attribute filtering combining background objects with subject exclusions, or rely on broad categorical keywords. When these query formulations fail due to system limitations in parsing relative time, background entities, or mood, users are forced to abandon semantic search entirely and resort to manual, tedious timeline scrolling.",
+      "evidence": {
+        "cited_clusters": [
+          1,
+          2,
+          3
+        ],
+        "verbatim_quotes": [
+          "I'd like to access photos from years earlier, 2008 to be exact, and that will definitely take forever to load, and I'll have to keep scrolling until I get there.",
+          "For example, I want to show photos I took in Japan that don't have my face on them, then I search like this: Japan +Hans -Julia"
+        ]
+      }
+    },
+    {
+      "question_id": 5,
+      "question_text": "Which in-scope cluster causes most frustration?",
+      "answer_text": "Among the in-scope vague memory retrieval clusters, Background Object Recall (Cluster ID 1) causes the most verified user frustration, representing 485 complaints (significantly outscaling Relative Time and Space Search at 65 complaints and Aesthetic and Weather Context at 34 complaints). Users express severe frustration because while advanced vision models clearly recognize objects within an image, the search architecture aggressively prioritizes primary foreground subjects while failing to index prominent background elements. This forces users to engage in complex, undocumented query workarounds or revert to manual scanning of massive libraries. Unclustered in-scope: 48.",
+      "evidence": {
+        "cited_clusters": [
+          1,
+          2,
+          3
+        ],
+        "verbatim_quotes": [
+          "I ask for \"yellow truck\" and it finds 2 out of the 10 different days I had taken pictures of yellow trucks. They're all banana yellow and the images contain a truck and nothing else.",
+          "9 out of 10 of my searches results in \"No Results\" found. Only the most basic and broad searches work. If you search for \"Dog\", you will get some results, but if you search for \"Big Dog\", you will get No Results."
+        ]
+      }
+    }
+  ],
+  "source_counts": {
+    "App Store": 170,
+    "Google Support Community": 18,
+    "Play Store": 9138,
+    "Reddit": 469,
+    "YouTube Comment": 3013
+  }
+}

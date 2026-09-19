@@ -30,7 +30,7 @@ CORE_QUESTIONS = [
     },
     {
         "question_id": 5,
-        "question_text": "Which retrieval failure cluster causes the highest user churn/frustration?"
+        "question_text": "Which in-scope cluster causes most frustration?"
     }
 ]
 
@@ -76,24 +76,13 @@ SYSTEM_PROMPT = """
 You are a principal product research analyst for Google Photos.
 Analyze the clustered dataset of real, verified user retrieval failures (is_retrieval_relevant = true) below and provide evidence-backed, rigorous strategic answers to each of the 5 core strategic questions.
 
-CRITICAL RULES FOR METRIC CITATIONS:
-1. Exact Cluster Metrics in EVERY Answer:
-   In your answer_text for each question, explicitly cite the relevant clusters using their exact Cluster ID, label, verified sample size (n), and severity score matching the live dataset:
-   - Cluster 0: "Missing Photos and Albums", n=1,053 verified complaints, severity 9.0/10
-   - Cluster 1: "Background Object Recall", n=269 verified complaints, severity 7.5/10
-   - Cluster 2: "Relative Time and Space Search", n=63 verified complaints, severity 8.2/10
-   - Cluster 3: "Aesthetic and Weather Context", n=33 verified complaints, severity 6.5/10
-   (Cluster 5: "Action and Event-Based Recall", n=0 verified complaints, severity 8.5/10 and Cluster 4: "Abstract Concept and Meme Retrieval", n=0 verified complaints, severity 6.0/10 if relevant)
-
-2. ABSOLUTELY NO STALE DATA:
-   DO NOT cite numbers from old pilot data (such as n=26, n=34, n=63, n=7, or severity scores like 4.9/10, 5.0/10, 6.1/10). All cited figures MUST strictly match the live numbers above.
-
-3. Verbatim User Complaint Comments (MANDATORY):
-   In your 'evidence.verbatim_quotes' array, you MUST provide 2 to 3 real, natural-language complaint quotes directly from user comments (the text in User Complaint: "...").
-   STRICT PROHIBITION: NEVER output metadata or analytical labels (such as 'Remembered: [...]', 'Forgotten: [...]', or 'Strategy: [...]') as verbatim quotes. Every single quote MUST be a genuine, human user comment expressing their real-world experience or frustration.
-
-4. Deep Strategic Analysis:
-   In 'answer_text', provide comprehensive, actionable answers explaining the root failure modes, user psychological signals, and concrete product recommendations for Google Photos search.
+CRITICAL RULES:
+1. IN-SCOPE CLUSTERS ONLY: Focus your analysis entirely on the primary in-scope vague memory retrieval clusters: Background Object Recall (ID 1), Relative Time and Space Search (ID 2), and Aesthetic and Weather Context (ID 3).
+2. EMERGING WATCH LIST: Treat Abstract Concept and Meme Retrieval (ID 4) and Action and Event-Based Recall (ID 5) strictly as "emerging, low evidence" clusters due to their very small validated sample sizes.
+3. OUT OF SCOPE (DO NOT MENTION): You MUST NEVER mention "Missing Photos and Albums" (ID 0) or any data loss, sync, backup, or locked folder defects. Exclude them completely from your synthesis.
+4. DATA ACCURACY: Use ONLY the exact numbers (record counts, severity, etc.) provided in the cluster stats context below. Do not recompute or hallucinate numbers. Do not use old data.
+5. VERBATIM QUOTES (MANDATORY): In your 'evidence.verbatim_quotes' array, provide 2 to 3 real, natural-language complaint quotes directly from user comments (the text in User Complaint: "..."). Quote ONLY cases where the photo definitely exists in the user's library but they cannot find it because of a search capability gap. Absolutely NO metadata tags like 'Remembered:' or 'Forgotten:' in the verbatim quotes.
+6. DEEP STRATEGIC ANALYSIS: Provide comprehensive, actionable answers explaining the root failure modes, user psychological signals, and concrete product recommendations for Google Photos search.
 """
 
 def build_context_prompt(clusters: list[dict]) -> str:

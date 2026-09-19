@@ -8,11 +8,11 @@ import './TestDrive.css';
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://google-photos.onrender.com/api';
 
 const SAMPLE_COMPLAINT_QUERIES = [
-  { label: "The video where my dog was barking at the TV", desc: "Action & Event" },
-  { label: "Photos from a few days after my birthday", desc: "Relative Time" },
+  { label: "The small cafe we went to during our Goa trip", desc: "Relative Time & Space" },
   { label: "I know she was holding a blue coffee mug", desc: "Background Object" },
+  { label: "Photos from a few days after my birthday", desc: "Relative Time" },
   { label: "I'm looking for a rainy day at a cafe", desc: "Aesthetic & Weather" },
-  { label: "A screenshot of a funny meme about cats", desc: "Abstract Concept" },
+  { label: "My photos disappeared after I backed up", desc: "Data Loss" }
 ];
 
 export default function TestDrive() {
@@ -93,7 +93,7 @@ export default function TestDrive() {
           <div className="results-container animate-fade-in">
             <div className="nearest-cluster glass-panel">
               <h3>Classification</h3>
-              {complaintResults.is_confident_match && complaintResults.nearest_cluster ? (
+              {complaintResults.match_status === 'Confident Match' && complaintResults.nearest_cluster ? (
                 <div className="cluster-match">
                   <span className="match-label">✓ Confident Match (Cluster #{complaintResults.nearest_cluster.cluster_id}):</span>
                   <span className="match-title">{complaintResults.nearest_cluster.label}</span>
@@ -108,15 +108,39 @@ export default function TestDrive() {
                     View Full Cluster
                   </button>
                 </div>
+              ) : complaintResults.match_status === 'Possible match' && complaintResults.nearest_cluster ? (
+                <div className="cluster-match">
+                  <span className="match-label" style={{ color: '#fbbf24' }}>○ Possible Match (Cluster #{complaintResults.nearest_cluster.cluster_id}):</span>
+                  <span className="match-title">{complaintResults.nearest_cluster.label}</span>
+                  <p>{complaintResults.nearest_cluster.description}</p>
+                  <div className="distance-badge warning" style={{ background: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', border: '1px solid rgba(251, 191, 36, 0.2)' }}>
+                    Distance: {complaintResults.nearest_cluster.distance.toFixed(4)} (Threshold: 0.45 - 0.55)
+                  </div>
+                  <button 
+                    className="btn-primary view-btn"
+                    onClick={() => navigate(`/cluster/${complaintResults.nearest_cluster.cluster_id}`)}
+                  >
+                    View Full Cluster
+                  </button>
+                </div>
+              ) : complaintResults.match_status === 'Out of scope: data loss' && complaintResults.nearest_cluster ? (
+                <div className="cluster-match">
+                  <span className="match-label" style={{ color: '#f87171' }}>✗ Out of scope: data loss (Cluster #{complaintResults.nearest_cluster.cluster_id}):</span>
+                  <span className="match-title" style={{ textDecoration: 'line-through' }}>{complaintResults.nearest_cluster.label}</span>
+                  <p>{complaintResults.nearest_cluster.description}</p>
+                  <div className="distance-badge warning" style={{ background: 'rgba(248, 113, 113, 0.1)', color: '#f87171', border: '1px solid rgba(248, 113, 113, 0.2)' }}>
+                    Distance: {complaintResults.nearest_cluster.distance.toFixed(4)}
+                  </div>
+                </div>
               ) : (
                 <div className="cluster-unmatched">
                   <div className="amber-badge">
                     ⚠️ Out-of-Domain / No Confident Match
                   </div>
                   <p>
-                    This query does not match any of the 4 tracked failure clusters with high confidence.
+                    This query does not match any of the 5 tracked failure clusters with high confidence.
                     {complaintResults.nearest_cluster && (
-                      <span> The closest is <strong>{complaintResults.nearest_cluster.label}</strong> with distance <code>{complaintResults.nearest_cluster.distance.toFixed(4)}</code>, which exceeds the {complaintResults.threshold} threshold.</span>
+                      <span> The closest is <strong>{complaintResults.nearest_cluster.label}</strong> with distance <code>{complaintResults.nearest_cluster.distance.toFixed(4)}</code>, which exceeds the threshold.</span>
                     )}
                   </p>
                   <div className="attribute-hint-box">
@@ -128,7 +152,7 @@ export default function TestDrive() {
             
             <div className="similar-records">
               <h3>Nearest Historical Complaints</h3>
-              {!complaintResults.is_confident_match && (
+              {complaintResults.match_status === 'Out-of-domain' && (
                 <div className="amber-low-confidence-banner">
                   <div className="banner-title">⚠️ Closest Available Reference (Low Confidence)</div>
                   <p>No historical complaints met the {complaintResults.threshold} similarity cutoff for this query. The records below are shown for reference only and are likely unrelated.</p>

@@ -77,9 +77,9 @@ export default function ClusterCard({ cluster }) {
         <div className="stat-item stat-item-breakdown" style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-start' }}>
           <span className="stat-label" style={{ marginBottom: '4px' }}>Complaints Verification</span>
           <div style={{ display: 'flex', gap: '8px', fontSize: '13px' }}>
-            <span style={{ color: isEmerging ? '#9ca3af' : '#4ade80' }} title="Confirmed Relevant">✓ {cluster.confirmed_relevant || 0}</span>
-            <span style={{ color: isEmerging ? '#9ca3af' : '#f87171' }} title="Confirmed Irrelevant">✗ {cluster.confirmed_irrelevant || 0}</span>
-            <span style={{ color: '#9ca3af' }} title="Unverified">? {cluster.unverified || 0}</span>
+            <span style={{ color: isEmerging ? '#9ca3af' : '#4ade80' }} title="LLM verified this complaint matches the cluster pattern and is a true search/retrieval issue.">✓ {cluster.confirmed_relevant || 0}</span>
+            <span style={{ color: isEmerging ? '#9ca3af' : '#f87171' }} title="LLM rejected this complaint (it was generic frustration, app crash, or unrelated to this cluster).">✗ {cluster.confirmed_irrelevant || 0}</span>
+            <span style={{ color: '#9ca3af' }} title="Awaiting LLM verification pipeline.">? {cluster.unverified || 0}</span>
           </div>
           {(cluster.vague_memory_count !== undefined || cluster.data_loss_count !== undefined) && (
             <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px' }}>
