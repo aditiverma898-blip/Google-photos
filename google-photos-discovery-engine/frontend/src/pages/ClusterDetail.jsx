@@ -58,7 +58,22 @@ export default function ClusterDetail() {
         <p>Found {records.length} historical user complaints exhibiting this failure pattern.</p>
       </header>
       
-      {records.length <= 5 && (
+      {id === '0' && (
+        <div style={{
+          margin: '0.5rem 0 1.5rem 0',
+          padding: '0.85rem 1.25rem',
+          background: 'rgba(251, 146, 60, 0.1)',
+          border: '1px solid rgba(251, 146, 60, 0.4)',
+          borderRadius: '8px',
+          color: '#fdba74',
+          fontSize: '0.9rem',
+          lineHeight: '1.5'
+        }}>
+          ℹ️ <strong>Out-of-Scope Context (Data Loss & Sync Defect):</strong> This cluster captures engineering data loss, backup failures, and device sync bugs where media was missing due to platform defects rather than user vague-memory retrieval gaps. Retained for corpus completeness.
+        </div>
+      )}
+
+      {records.length <= 5 && id !== '0' && (
         <div style={{
           margin: '0.5rem 0 1.5rem 0',
           padding: '0.85rem 1.25rem',

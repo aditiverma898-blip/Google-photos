@@ -64,12 +64,14 @@ async def get_clusters(request: Request):
         c['top_failure_points'] = json.loads(c.get('top_failure_points', '[]'))
         cid = c['cluster_id']
         
-        # 1. Real Record Count and Relevance states
+        # 1. Real Record Count, Relevance states, and Failure Category Breakdown
         async with pool.execute("""
             SELECT count(*), 
                    SUM(CASE WHEN is_retrieval_relevant = 1 THEN 1 ELSE 0 END),
                    SUM(CASE WHEN is_retrieval_relevant = 0 THEN 1 ELSE 0 END),
-                   SUM(CASE WHEN is_retrieval_relevant IS NULL THEN 1 ELSE 0 END)
+                   SUM(CASE WHEN is_retrieval_relevant IS NULL THEN 1 ELSE 0 END),
+                   SUM(CASE WHEN is_retrieval_relevant = 1 AND failure_category = 'vague_memory_retrieval' THEN 1 ELSE 0 END),
+                   SUM(CASE WHEN is_retrieval_relevant = 1 AND failure_category = 'data_loss_sync' THEN 1 ELSE 0 END)
             FROM feedback_records WHERE cluster_id = ?
         """, (cid,)) as cursor:
             row = await cursor.fetchone()
@@ -77,6 +79,13 @@ async def get_clusters(request: Request):
             c['confirmed_relevant'] = row[1] or 0
             c['confirmed_irrelevant'] = row[2] or 0
             c['unverified'] = row[3] or 0
+            c['vague_memory_count'] = row[4] or 0
+            c['data_loss_count'] = row[5] or 0
+            
+        if cid == 0:
+            c['primary_category'] = 'data_loss_sync'
+        else:
+            c['primary_category'] = 'vague_memory_retrieval'
             
         # 2. Real Source Diversity
         async with pool.execute("SELECT source, source_platform, count(*) as cnt FROM feedback_records WHERE cluster_id = ? GROUP BY source, source_platform", (cid,)) as cursor:
@@ -132,7 +141,13 @@ async def get_clusters(request: Request):
         c['representative_quotes'] = formatted_quotes
         clusters.append(c)
         
-    clusters.sort(key=lambda x: (not x.get('is_emerging', False), x.get('confirmed_relevant', 0), x.get('severity_score', 0)), reverse=True)
+    # Re-rank: in-scope (vague_memory_retrieval) non-emerging first sorted by confirmed_relevant and severity, then emerging, then out-of-scope (data_loss_sync)
+    clusters.sort(key=lambda x: (
+        x.get('primary_category') == 'vague_memory_retrieval',
+        not x.get('is_emerging', False),
+        x.get('confirmed_relevant', 0) if x.get('primary_category') == 'vague_memory_retrieval' else 0,
+        x.get('severity_score', 0)
+    ), reverse=True)
 
     if missing_source_count > 0:
         logger.warning(f"Total representative complaint quotes missing source across clusters: {missing_source_count}")
@@ -195,13 +210,24 @@ async def get_coverage(request: Request):
             if canon:
                 source_counts[canon] = source_counts.get(canon, 0) + cnt
             
-    async with pool.execute("SELECT SUM(CASE WHEN is_retrieval_relevant = 1 THEN 1 ELSE 0 END) FROM feedback_records") as cursor:
-        relevant_complaints = (await cursor.fetchone())[0] or 0
+    async with pool.execute("""
+        SELECT 
+            SUM(CASE WHEN is_retrieval_relevant = 1 THEN 1 ELSE 0 END),
+            SUM(CASE WHEN is_retrieval_relevant = 1 AND failure_category = 'vague_memory_retrieval' THEN 1 ELSE 0 END),
+            SUM(CASE WHEN is_retrieval_relevant = 1 AND failure_category = 'data_loss_sync' THEN 1 ELSE 0 END)
+        FROM feedback_records
+    """) as cursor:
+        cov_row = await cursor.fetchone()
+        relevant_complaints = cov_row[0] or 0
+        vague_memory_complaints = cov_row[1] or 0
+        data_loss_complaints = cov_row[2] or 0
         
     return {
         "total_corpus": sum(source_counts.values()),
         "source_counts": source_counts,
-        "relevant_complaints": relevant_complaints
+        "relevant_complaints": relevant_complaints,
+        "vague_memory_complaints": vague_memory_complaints,
+        "data_loss_complaints": data_loss_complaints
     }
 
 @router.get("/synthesis")

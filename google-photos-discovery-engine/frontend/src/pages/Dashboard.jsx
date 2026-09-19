@@ -96,6 +96,13 @@ export default function Dashboard() {
     );
   }
 
+  const inScopeClusters = clusters.filter(
+    c => c.primary_category === 'vague_memory_retrieval' || (c.cluster_id !== 0 && c.primary_category !== 'data_loss_sync')
+  );
+  const outOfScopeClusters = clusters.filter(
+    c => c.primary_category === 'data_loss_sync' || c.cluster_id === 0
+  );
+
   return (
     <div className="dashboard animate-fade-in">
       <header className="dashboard-header">
@@ -135,23 +142,29 @@ export default function Dashboard() {
             <div className="error-state glass-panel" style={{ color: 'var(--text-secondary)', padding: '2rem', textAlign: 'center' }}>Failed to load source coverage data.</div>
           ) : (
             <div className="coverage-bar glass-panel">
-              <div className="coverage-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
-                <div style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap' }}>
+              <div className="coverage-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1.5rem' }}>
+                <div style={{ display: 'flex', gap: '2.5rem', flexWrap: 'wrap' }}>
                   <div>
-                    <h3 style={{ fontSize: '1.1rem', marginBottom: '0.2rem', color: 'var(--text-secondary)' }}>Raw Items Ingested</h3>
-                    <div style={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>
-                      {coverage.total_corpus.toLocaleString()} <span style={{ fontSize: '0.9rem', fontWeight: 'normal', color: 'var(--text-secondary)' }}>across {Object.keys(coverage.source_counts || {}).length} sources</span>
+                    <h3 style={{ fontSize: '0.95rem', marginBottom: '0.2rem', color: 'var(--text-secondary)' }}>Raw Items Ingested</h3>
+                    <div style={{ fontSize: '1.35rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>
+                      {coverage.total_corpus.toLocaleString()} <span style={{ fontSize: '0.85rem', fontWeight: 'normal', color: 'var(--text-secondary)' }}>across {Object.keys(coverage.source_counts || {}).length} sources</span>
                     </div>
                   </div>
                   <div>
-                    <h3 style={{ fontSize: '1.1rem', marginBottom: '0.2rem', color: 'var(--accent-color, #c4b5fd)' }}>Relevant Complaints (Post-Filter)</h3>
-                    <div style={{ fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--accent-color, #c4b5fd)' }}>
-                      {coverage.relevant_complaints ? coverage.relevant_complaints.toLocaleString() : 0}
+                    <h3 style={{ fontSize: '0.95rem', marginBottom: '0.2rem', color: 'var(--accent-color, #c4b5fd)' }}>In-Scope Retrieval Complaints</h3>
+                    <div style={{ fontSize: '1.35rem', fontWeight: 'bold', color: '#c084fc' }}>
+                      {(coverage.vague_memory_complaints || 0).toLocaleString()} <span style={{ fontSize: '0.8rem', fontWeight: 'normal', color: 'var(--text-secondary)' }}>vague memory</span>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '0.95rem', marginBottom: '0.2rem', color: '#fb923c' }}>Out-of-Scope Bugs</h3>
+                    <div style={{ fontSize: '1.35rem', fontWeight: 'bold', color: '#fdba74' }}>
+                      {(coverage.data_loss_complaints || 0).toLocaleString()} <span style={{ fontSize: '0.8rem', fontWeight: 'normal', color: 'var(--text-secondary)' }}>data loss / sync</span>
                     </div>
                   </div>
                 </div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', maxWidth: '280px', textAlign: 'right', marginTop: '0.5rem' }}>
-                  💡 Not all raw items describe a specific retrieval failure — <Link to="/funnel" style={{ color: 'var(--accent-color, #c4b5fd)', textDecoration: 'underline' }}>see filtering funnel for details.</Link>
+                <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', maxWidth: '270px', textAlign: 'right', marginTop: '0.2rem' }}>
+                  💡 Classified via batched LLM pass into vague memory retrieval vs data loss/sync bugs — <Link to="/funnel" style={{ color: 'var(--accent-color, #c4b5fd)', textDecoration: 'underline' }}>see funnel.</Link>
                 </div>
               </div>
               <div className="coverage-stats">
@@ -170,17 +183,68 @@ export default function Dashboard() {
       )}
 
       <section className="clusters-section">
-        <h2>Failure Clusters</h2>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <h2 style={{ margin: 0 }}>Vague Memory Retrieval Failures</h2>
+            <span style={{ 
+              background: 'rgba(168, 85, 247, 0.2)', 
+              color: '#c084fc', 
+              border: '1px solid rgba(168, 85, 247, 0.4)', 
+              borderRadius: '999px', 
+              fontSize: '0.72rem', 
+              fontWeight: 700, 
+              padding: '0.2rem 0.6rem',
+              letterSpacing: '0.5px'
+            }}>
+              PRIMARY FOCUS • IN-SCOPE
+            </span>
+          </div>
+          <p style={{ color: 'var(--text-secondary)', marginTop: '0.35rem', fontSize: '0.92rem' }}>
+            User memory vs retrieval gap: users recall partial cues (background objects, relative dates, visual aesthetics, events) but Google Photos search fails to bridge the gap.
+          </p>
+        </div>
+
         {errors.clusters ? (
           <div className="error-state glass-panel" style={{ color: 'var(--text-secondary)', padding: '2rem', textAlign: 'center' }}>Failed to load clusters data.</div>
         ) : (
           <div className="grid grid-cols-3">
-            {clusters.map(cluster => (
+            {inScopeClusters.map(cluster => (
               <ClusterCard key={cluster.cluster_id} cluster={cluster} />
             ))}
           </div>
         )}
       </section>
+
+      {outOfScopeClusters.length > 0 && (
+        <section className="clusters-section" style={{ marginTop: '3.5rem' }}>
+          <div style={{ marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <h2 style={{ margin: 0, color: '#fdba74' }}>Data Loss & Sync Defects</h2>
+              <span style={{ 
+                background: 'rgba(251, 146, 60, 0.15)', 
+                color: '#fdba74', 
+                border: '1px solid rgba(251, 146, 60, 0.35)', 
+                borderRadius: '999px', 
+                fontSize: '0.72rem', 
+                fontWeight: 700, 
+                padding: '0.2rem 0.6rem',
+                letterSpacing: '0.5px'
+              }}>
+                OUT-OF-SCOPE CONTEXT • ENGINEERING DEFECTS
+              </span>
+            </div>
+            <p style={{ color: 'var(--text-secondary)', marginTop: '0.35rem', fontSize: '0.92rem' }}>
+              Complaints where content was deleted, lost, or misplaced due to cloud sync failures, locked folder bugs, or device backup corruption. Retained for complete transparency across the verified corpus.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-3">
+            {outOfScopeClusters.map(cluster => (
+              <ClusterCard key={cluster.cluster_id} cluster={cluster} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
