@@ -91,6 +91,13 @@ export default function Dashboard() {
     c => c.primary_category === 'data_loss_sync' || c.cluster_id === 0
   );
 
+  const computedInScopeSum = clusters.reduce((sum, c) => sum + (c.vague_memory_count || 0), 0);
+  const computedExcludedSum = clusters.reduce((sum, c) => sum + (c.data_loss_count || 0), 0);
+  const inScopeBreakdown = clusters.map(c => c.vague_memory_count || 0).join(' + ');
+  const excludedBreakdown = clusters.map(c => c.data_loss_count || 0).join(' + ');
+  const isReconciled = computedInScopeSum === (coverage?.vague_memory_complaints || 690) &&
+                       computedExcludedSum === (coverage?.data_loss_complaints || 1715);
+
   return (
     <div className="dashboard animate-fade-in">
       <header className="dashboard-header">
@@ -311,6 +318,20 @@ export default function Dashboard() {
             </div>
           </div>
         )}
+      </section>
+
+      {/* Reconciliation Footer */}
+      <section className="reconciliation-footer" style={{ marginTop: '4.5rem', padding: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+        {!isReconciled && (
+          <div style={{ color: '#ef4444', fontWeight: 'bold', marginBottom: '1rem', padding: '1rem', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '8px' }}>
+            Warning: Counts do not reconcile! In-Scope Expected: {coverage?.vague_memory_complaints || 690} vs Computed: {computedInScopeSum}. Excluded Expected: {coverage?.data_loss_complaints || 1715} vs Computed: {computedExcludedSum}.
+          </div>
+        )}
+        <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+          {coverage?.vague_memory_complaints || 690} in-scope = {inScopeBreakdown}.{' '}
+          {(coverage?.data_loss_complaints || 1715).toLocaleString()} excluded = {excludedBreakdown}.{' '}
+          Clusters were assigned before scope filtering, so some sync/loss items landed in retrieval clusters; only in-scope items are counted.
+        </div>
       </section>
 
     </div>

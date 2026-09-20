@@ -1,0 +1,602 @@
+[
+  {
+    "id": 3,
+    "cluster": 2,
+    "source": "unknown",
+    "text": "What did you do? I can't find anything all of a sudden. Stacked photos?! I couldn't find the picture I just took. After freaking out for a few minutes I discovered it was stacked and needed to be unstacked. That was a mean trick."
+  },
+  {
+    "id": 4,
+    "cluster": 2,
+    "source": "unknown",
+    "text": "Ca't find pic from month of Nov 2023 and month of 2024 thanks"
+  },
+  {
+    "id": 14,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Another Google app that's becoming more and more infuriatingly unusable by the day. I love the Gemini app itself and I pay an additional fee for it, but when integrated into other Google Apps such as photos it just plain sucks. \ud83d\ude22 in particular search functions now terrible I can't find any photos of looking for and most of the time the deletion and creation of new photos are impossible to sync up between my iPad and my Google pixel phone. integrating Gemini into so many apps so fast seems to"
+  },
+  {
+    "id": 35,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Waste more time trying to dismiss constant nagging to try their AI slop. Why do I pay so much for storage, and then get nagged with some dumb feature nobody wants. Just let me store my photos like I pay for. **After forcing us to use albums instead of folders, search hasn't even worked for years. Want to find a photo or folder with an exact name...doesn't work. It will use useless AI to find a thousand unrelated pictures it thinks are similar instead of the one picture with the exact name."
+  },
+  {
+    "id": 51,
+    "cluster": 0,
+    "source": "play_store",
+    "text": "Hate it. I cant stand how it automatically stores my photos in Numerous different folders without asking me where I want them, it makes it SO much more difficult to easily find what I'm looking for when they're scattered in 12 different places that don't even make sense together."
+  },
+  {
+    "id": 77,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Fix Google Photos, PLZZZZ! It used to be my favorite, GO TO for photos until a few weeks ago. I'm an artist, photographer, and major ADHD - I have come to rely on GP so much it's almost 2nd skin, and saved me so much time & hassle.Now, I can't even find all of my photos, albums, etc. Most \ud83e\udd2c is not being able to just pull up a photo and attach or insert anywhere. Just spent over 1 hr trying to find a photo I had taken of an order that the seller asked for me to upload a pic. (Still can't)"
+  },
+  {
+    "id": 80,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "This app continues to get enshitified. In 2026 I thought I could send an album to Google photos without any issues but that's not supported. Instead, I selected each individual image and uploaded them thinking they'd be easy to find under recently uploaded. They were not. They were mixed in with my thousands of other pictures, which I'm obviously not going to look through. I'm just going to use another platform to make an album in the cloud. Crazy Google photos can no longer do that with ease."
+  },
+  {
+    "id": 81,
+    "cluster": 2,
+    "source": "play_store",
+    "text": "Google removed the ability to zoom out to uniform tiny thumbnails in the last update for no reason, instead forcing a dynamic view where random photos/videos are taking up excessive grid space It is now much harder to quickly scan and find older photos, and I've had to roll back to an old version of Google Photos for this reason. On the other hand, thank you for finally allowing us to download multiple pictures to device with one click. This basic missing feature was a much needed change."
+  },
+  {
+    "id": 92,
+    "cluster": 2,
+    "source": "play_store",
+    "text": "Just bring back the old format; I can't even find or browse my old media unless I search year by year because the main page only shows the camera roll. Who decided that? I used to scroll down, and I'd find everything; now I feel like my own memories are being hidden from me."
+  },
+  {
+    "id": 101,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "PLEASE FIX ASAP! WHERE DO THE EDITED PHOTOS GO? As soon as you finish editing and click SAVE it's GONE and you can only search for the original photo again! PLEASE FIX THIS! Also still need to make the editor LARGER and the buttons easier but overall the navigation menus and saving still need help! Search works ok but saved photos should be saved instantly to an easy to find location! edited and automatic edits and missed \"memories\" are also hard to find a calendar option and more folders too"
+  },
+  {
+    "id": 105,
+    "cluster": 2,
+    "source": "play_store",
+    "text": "Over the time this app has become worse and less intuitive. Where did the \"Sharing\" button go? It's overall design of where things are makes me use it less. Edit: PLEASE have a \"Sort by save date\" filter for downloaded images. Edit #2 after Google LLC comment: Downloaded images should have a sort by download date option so you don't have a dig for years to find a photo from 2021."
+  },
+  {
+    "id": 108,
+    "cluster": 2,
+    "source": "reddit",
+    "text": "shared photos taking too long to load - How to access them without having to load? My dad shares his phone photos with me through Google Photos, but when I want to access older photos, even if they're from three months ago or less, they have to be uploaded. I'd like to access photos from years earlier, 2008 to be exact, and that will definitely take forever to load, and I'll have to keep scrolling until I get there. Is there a way to use the app and just by opening the shared album, I can access all the photos as if I were looking at them on his own phone? submitted by /u/emeaga4 [link] [comments]"
+  },
+  {
+    "id": 118,
+    "cluster": 5,
+    "source": "reddit",
+    "text": "Finding the \"Unrecognized\" or \"Face available to Add\" : How I finally automated the discovery of thousands of hidden faces in Google Photos I am at my breaking point. I have over 85,000 photos in my library and the number still increasing, and Google Photos has completely failed to manage all faces. The core problem? The \"Unrecognized\" faces or \"Face available to Add\" We all know they are there buried deep and Google makes it impossible to see a list of them. You can't search, filter or even use the AI Ask photos feature. The manually clicking through 85,000 photos to find which ones have an \"Available to add\" tag is a literal prison sentence. I contacted Google one support, and you know the answer. Seriously I considered leaving for other services, but the \"Google One\" ecosystem trap is too strong specially with AI package. I was locked in. So, I decided to stop waiting for Google to fix their product and built my own scanner to extract these hidden faces. I used AI to build a custom tool that scans my library, identifies exactly which photos have faces waiting for a name, and exports the direct links into a clean CSV file. The Solution: Targeted Face Discovery This script doesn't just \"scrape\" it mimics human behavior to avoid being bot, carefully navigating your library to find those \"Available to add\" tags that are impossible to search for manually. How to reclaim your library (Step-by-Step): Just a heads up: these steps are a general overview. I\u2019m not a developer, so if you get stuck along the way, don't hesitate to use an AI assistant to help you debug or clarify any part of the process Install Python Install VS Code Setup Your Folder Create a new folder on your Desktop and name it GooglePhotosScanner. Open VS Code. Click File > Open Folder and select the GooglePhotosScanner folder you just created. In VS Code, look at the sidebar on the left. Right-click in the empty space, select New File, and name it scan.py. Copy the code block paste it into the file, and press Command + S (or Ctrl + S on Windows) to save it. Python from playwright.sync_api import sync_playwright import csv import sys import time sys.stdout.reconfigure(line_buffering=True) # ========================================== # \u2699\ufe0f STRICT TIMING SETTINGS # ========================================== FIXED_WAIT = 3.0 # Strict 3 seconds wait per photo for scanning RETRY_WAIT = 3.0 # Strict 3 seconds rest between navigation retries def run(): print(f\"--- Starting Scan with Strict Fixed Wait ({FIXED_WAIT}s) ---\") start_time = time.time() total_scanned = 0 faces_found = 0 no_faces = 0 with sync_playwright() as p: browser = p.chromium.connect_over_cdp(\"http://127.0.0.1:9222\") page = browser.contexts[0].pages[0] try: with open('unrecognized_faces.csv', mode='a', newline='', encoding='utf-8') as file: writer = csv.writer(file) while True: current_url = page.url total_scanned += 1 # 1. Strict Wait (No early exit) page.wait_for_timeout(int(FIXED_WAIT * 1000)) # 2. Single Check after the wait found = False if any(el.is_visible() for el in page.get_by_text(\"available to add\", exact=False).all()): found = True # 3. Log results if found: faces_found += 1 writer.writerow([current_url]) file.flush() print(f\"\u2705 Found: {current_url}\") else: no_faces += 1 print(f\"\u274c Clean: {current_url}\") # ========================================== # \ud83d\udd04 Robust Navigation Strategy # ========================================== navigated = False for attempt in range(3): page.keyboard.press(\"ArrowRight\") try: page.wait_for_function(f\"window.location.href !== '{current_url}'\", timeout=4000) navigated = True break except Exception: print(f\"\u26a0\ufe0f Browser is slow... Navigation attempt {attempt + 2} of 3\") # Rest for 3 seconds before trying again page.wait_for_timeout(int(RETRY_WAIT * 1000)) if not navigated: print(\"\\n--- Reached the end of the album (or browser is completely stuck) ---\") break except KeyboardInterrupt: print(\"\\n--- Scan stopped manually by user ---\") # Final Time Calculation end_time = time.time() elapsed_time = end_time - start_time minutes, seconds = divmod(int(elapsed_time), 60) hours, minutes = divmod(minutes, 60) if hours > 0: time_str = f\"{hours}h {minutes}m {seconds}s\" else: time_str = f\"{minutes}m {seconds}s\" # Print Final Report print(\"\\n\" + \"=\"*40) print(\"\ud83d\udcca FINAL SCAN REPORT:\") print(\"=\"*40) print(f\"\ud83d\udcf7 Total photos scanned: {total_scanned}\") print(f\"\u26a0\ufe0f Photos with faces found: {faces_found}\") print(f\"\u2705 Clean photos (No faces): {no_faces}\") print(f\"\u23f1\ufe0f Total time elapsed: {time_str}\") print(\"=\"*40 + \"\\n\") if __name__ == \"__main__\": run() In VS Code, click the Terminal menu at the top, then select New Terminal. A window will pop up at the bottom of VS Code. Make sure it says GooglePhotosScanner in the path. pip install playwright playwright install chromium Open Chrome in Debug Mode (so the script can see it): Windows: \"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\" --remote-debugging-port=9222 Mac: /Applications/Google\\ [Chrome.app/Contents/MacOS/Google\\](http://Chrome.app/Contents/MacOS/Google) Chrome --remote-debugging-port=9222 Sign in to your google account, open Google photos This is important and this how is did it, In google photos search, typed Jan 2010 - Dec 2010, Open the 1st image (not in the most relevant section) then click on \"i\" to open the side info Make sure the only chrome opened is the with the debug mode, and its viewing the 1st image in your list with side info details is opened Go back to VS Code, Open new terminal while the 1st one still running and type: python3 scan.py You\u2019ll get a CSV list of every single photo in your library that contains an unidentified face. Next time if you would like to run it again Open Vs Code Open your folder (Click File > Open Folder and select the GooglePhotosScanner folder you just created. In VS Code, From the top menu, Terminal -> and in the terminal type then Enter /Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --remote-debugging-port=9222 --user-data-dir=\"/tmp/chrome_dev_test\" Keep the previous Terminal running , and again from the menu select Terminal -> new terminal and type then Enter Python3 scan.py I added a \"Base Wait\" of 1 second. Why? Because we want to mimic human behavior. If you go too fast, Google will flag you. This pace is safe, reliable, and it saved me months of work. Why this changes everything: Instead of staring at thousands of photos, I now have a simple list. I can tackle 5K - 10K faces a day without breaking my back. If you are struggling with a massive, unorganized library, don't keep searching for a feature that doesn't exist. Automate the discovery yourself. Final word: If you are currently struggling with 10k, 50k, or 85k+ photos and you feel like the system is working against you, don't give up. The solution isn't in Google's settings; it\u2019s in taking control of the browser yourself. Troubleshooting: If you run into any permission issues, path errors, or the script isn't detecting the port\u2014don't panic. Just ask an AI to help you with the traceback errors. It helped me iterate and fix every bottleneck I encountered. Read more"
+  },
+  {
+    "id": 120,
+    "cluster": 1,
+    "source": "reddit",
+    "text": "Search only shows old photos from years ago, no new photos When I search for keywords in the Google photos app or on the web, I only get results from photos I've backed up from an old phone, from 2023 or earlier. No photos I've taken with my current phone show up. All the photos are backed up in the cloud and I've tried turning backup on and off. I can't find any solutions online. Anyone else had this issue?"
+  },
+  {
+    "id": 125,
+    "cluster": 1,
+    "source": "youtube",
+    "text": "Doesn't work, I used an image of me that has been uploaded to three different social media profiles and it didn't find anything"
+  },
+  {
+    "id": 126,
+    "cluster": 5,
+    "source": "reddit",
+    "text": "How can I easily find photos or videos that I most recently backed up, even if their time stamp (when they were taken) is from years ago? I just recently uploaded some old photos and videos from a while back, and I forgot the exact date of when they were taken. I was scrolling through things and eventually found them, and I cannot remember the date for the life of me. I'd like to see the photos now on Google photos, but I have no idea how. Any kind help or suggestions are appreciated!"
+  },
+  {
+    "id": 130,
+    "cluster": 1,
+    "source": "reddit",
+    "text": "Is there a search term for finding photos I have edited? Tried \"edited\" but it didn't work"
+  },
+  {
+    "id": 134,
+    "cluster": 2,
+    "source": "youtube",
+    "text": "Still cant find the photo im looking for even after scrolling for 2 hours. Why does it sort by date uploaded instead of date taken?"
+  },
+  {
+    "id": 139,
+    "cluster": 2,
+    "source": "youtube",
+    "text": "Can't find pictures from my 2021 road trip. When I type 2021 it returns zero results, even though thousands of pictures exist."
+  },
+  {
+    "id": 147,
+    "cluster": 1,
+    "source": "helpforum",
+    "text": "I know I have a picture of my blue passport cover, but searching for 'passport' or 'blue' brings up zero results."
+  },
+  {
+    "id": 148,
+    "cluster": 1,
+    "source": "helpforum",
+    "text": "Cannot find photos by location anymore. When I search for 'Goa trip', it says no results found even though geotags exist on the files."
+  },
+  {
+    "id": 149,
+    "cluster": 2,
+    "source": "helpforum",
+    "text": "How do I find pictures that I saved last week? The search tab doesn't have a 'Recently Saved' or 'Recently Downloaded' filter option."
+  },
+  {
+    "id": 199,
+    "cluster": 3,
+    "source": "play_store",
+    "text": "Search used to be effortless, but the latest updates ruined it. It can't locate anything anymore even obvious photos that I know are right there in my library. Frustrating to see a core feature stop working properly. peak enshittification"
+  },
+  {
+    "id": 200,
+    "cluster": 3,
+    "source": "play_store",
+    "text": "edit: I fixed the problem, used an apk to download version 7.90! the last update to the UI has made this app unusable. I cant find any of the photos im looking for, things are no longer grouped by date, some photos dont show up at all in the main grid and now i have to dig in collections to find them, theres so many more issues too. the app worked amazingly before this update, I will look into downloading an older version and recommend others do the same or avoid updating if you havent yet"
+  },
+  {
+    "id": 206,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Waste more time trying to dismiss constant nagging to try their AI slop. Why do I pay so much for storage, and then get nagged with some dumb feature nobody wants. Just let me store my photos like I pay for. **After forcing us to use albums instead of folders, search hasn't even worked for years. Want to find a photo or folder with an exact name...doesn't work. It will use useless AI to find a thousand unrelated pictures it thinks are similar instead of the one picture with the exact name."
+  },
+  {
+    "id": 314,
+    "cluster": 2,
+    "source": "play_store",
+    "text": "Fix Google Photos, PLZZZZ! It used to be my favorite, GO TO for photos until a few weeks ago. I'm an artist, photographer, and major ADHD - I have come to rely on GP so much it's almost 2nd skin, and saved me so much time & hassle.Now, I can't even find all of my photos, albums, etc. Most \ud83e\udd2c is not being able to just pull up a photo and attach or insert anywhere. Just spent over 1 hr trying to find a photo I had taken of an order that the seller asked for me to upload a pic. (Still can't)"
+  },
+  {
+    "id": 321,
+    "cluster": 0,
+    "source": "play_store",
+    "text": "This app continues to get enshitified. In 2026 I thought I could send an album to Google photos without any issues but that's not supported. Instead, I selected each individual image and uploaded them thinking they'd be easy to find under recently uploaded. They were not. They were mixed in with my thousands of other pictures, which I'm obviously not going to look through. I'm just going to use another platform to make an album in the cloud. Crazy Google photos can no longer do that with ease."
+  },
+  {
+    "id": 323,
+    "cluster": 2,
+    "source": "play_store",
+    "text": "this is weird, I was just looking at my pictures from the other day moved them to a folder , turned off my data 4 pictures of my pooch disappeared, then I put my charger in to charge my phone and then data they popped up with today section not the day they were taken or with the other photos they were taken with at the same time, good job I have them watermarked , I'm sure my account is in someone else's hands !!!, Thank you i will check the best I can, just update this yesterday, updated 18th?"
+  },
+  {
+    "id": 359,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Google Photos sucks now! I cannot find my photos by name anymore!"
+  },
+  {
+    "id": 364,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "PLEASE FIX ASAP! WHERE DO THE EDITED PHOTOS GO? As soon as you finish editing and click SAVE it's GONE and you can only search for the original photo again! PLEASE FIX THIS! Also still need to make the editor LARGER and the buttons easier but overall the navigation menus and saving still need help! Search works ok but saved photos should be saved instantly to an easy to find location! edited and automatic edits and missed \"memories\" are also hard to find a calendar option and more folders too"
+  },
+  {
+    "id": 379,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "the app has been so poor recently with the search keywords. even when your photo is being backedup, you still have to look for it manually. I wonder whats the usefulness of the search if you cant find your pictures without seeing \"no results\""
+  },
+  {
+    "id": 388,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Good App. But Sometimes I Can't Add Location In Photos. I Search but No Recommendation Result finds. even Not Showing Any Results Some Times. I think Google Need To Fix This Problem"
+  },
+  {
+    "id": 402,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "The search function is garbage now. Keywords that I used to search for pictures that would bring back hundreds of pics, including the ones I was looking for, now bring \"No Results.\" Why did you break it like this?"
+  },
+  {
+    "id": 404,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Search doesn't work like it used to, so it kind of makes this app worthless to me! With nearly 60k photos I can no longer search for SOME family and friends names in label descriptions I've make over many years, very frustrating. I've contaced google and they cannot find a resolution! Oh, and also something new, the app actually erases what I type on the description! I have to remember to copy text so I can cut and paste, or I have to retype everything!"
+  },
+  {
+    "id": 455,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Specifically purchased the type of phone I have for this photos app. For years I have been thrilled. However, with AI (just like Gmail app now) I'm exhausted, frustrated, and disappointed. SO much time I wasted finding a simple photo (or not). I despise AI integrations in the apps. It used to be that I could bypass it. I appreciated that. CANNOT any longer. What good is the app (and especially AI) if I can't find photos I know exist (and used to be able to find) using basic search terms."
+  },
+  {
+    "id": 467,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "the new update removed all the face groups I had, now I can't even find the people I want in the pictures, horrible the face groups are already on, they don't identify anyone not even me whn I try to select my own face it says try again later"
+  },
+  {
+    "id": 474,
+    "cluster": 4,
+    "source": "play_store",
+    "text": "My searches are not working. I know there's multiple screenshots with the words \"silver-blue eyes\" in it and nothing is showing up"
+  },
+  {
+    "id": 530,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "the latest update is garbage. the search function is useless. I search up human, animal, painting, rollercoaster, all things that ARE IN MY CAMERA ROLL and all things I've looked up before. it used to find these things perfectly fine. but now it's completely useless and won't give me ANY results."
+  },
+  {
+    "id": 532,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Would be great to be able to have the search feature in locked folder. Ridiculous how this feature isn't available for lock folder in this app. Having to endlessly scroll to try and find something specific. Should also have the same feature month/day/year."
+  },
+  {
+    "id": 761,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "the app has been so poor recently with the search keywords. even when your photo is being backedup, you still have to look for it manually. I wonder whats the usefulness of the search if you cant find your pictures without seeing \"no results\""
+  },
+  {
+    "id": 770,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Good App. But Sometimes I Can't Add Location In Photos. I Search but No Recommendation Result finds. even Not Showing Any Results Some Times. I think Google Need To Fix This Problem"
+  },
+  {
+    "id": 781,
+    "cluster": 3,
+    "source": "play_store",
+    "text": "organization difficulty. it's great having folders but I wish they'd disappear from the main folder or something once organized into one otherwise they can get sorted into multiple folders and it's a mess. also the search for any of my Pic is difficult when I'm trying to find a specific one but any of the key words don't make it pop up so I end up just having to scroll. it seems like a problem other users are having as I see very similar reviews. the app updates often but ive had this same issue"
+  },
+  {
+    "id": 784,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "The search function is garbage now. Keywords that I used to search for pictures that would bring back hundreds of pics, including the ones I was looking for, now bring \"No Results.\" Why did you break it like this?"
+  },
+  {
+    "id": 786,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Search doesn't work like it used to, so it kind of makes this app worthless to me! With nearly 60k photos I can no longer search for SOME family and friends names in label descriptions I've make over many years, very frustrating. I've contaced google and they cannot find a resolution! Oh, and also something new, the app actually erases what I type on the description! I have to remember to copy text so I can cut and paste, or I have to retype everything!"
+  },
+  {
+    "id": 791,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "The new Google Photos update is honestly very disappointing. The previous version was much more convenient and user-friendly. The \u201cSearch by People\u201d option, which was one of the most useful features, is now missing or difficult to find. Why remove or hide a feature that made finding specific photos so easy? The new update feels more complicated instead of being an improvement. Please bring back the \u201cSearch by People\u201d option and make the app as convenient as it was before."
+  },
+  {
+    "id": 821,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "So many updates, and yet you still cannot alphabetize your faces. No rhyme or reason to the way they show up. Makes it tough to find pictures of specific people."
+  },
+  {
+    "id": 837,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Specifically purchased the type of phone I have for this photos app. For years I have been thrilled. However, with AI (just like Gmail app now) I'm exhausted, frustrated, and disappointed. SO much time I wasted finding a simple photo (or not). I despise AI integrations in the apps. It used to be that I could bypass it. I appreciated that. CANNOT any longer. What good is the app (and especially AI) if I can't find photos I know exist (and used to be able to find) using basic search terms."
+  },
+  {
+    "id": 844,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "This description of change made on July 22, 2026 says easy to search photos. HOWEVER, it doesn't say how to find my multiple photo albums."
+  },
+  {
+    "id": 849,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "the new update removed all the face groups I had, now I can't even find the people I want in the pictures, horrible the face groups are already on, they don't identify anyone not even me whn I try to select my own face it says try again later"
+  },
+  {
+    "id": 856,
+    "cluster": 4,
+    "source": "play_store",
+    "text": "My searches are not working. I know there's multiple screenshots with the words \"silver-blue eyes\" in it and nothing is showing up"
+  },
+  {
+    "id": 904,
+    "cluster": 2,
+    "source": "play_store",
+    "text": "Please give people a choice of how they want their photos laid out. The random choice of big photos influenced behind the scenes w/ai that I didn't ask for and should have been my choice... Downloading images or videos doesnt show up in order of download. For some reason GPhotos is reading the exif data of the item downloaded and placing it based if that in the gallery. Very bad, can't find family photos downloaded cause they end up being the year it was taken..."
+  },
+  {
+    "id": 912,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "the latest update is garbage. the search function is useless. I search up human, animal, painting, rollercoaster, all things that ARE IN MY CAMERA ROLL and all things I've looked up before. it used to find these things perfectly fine. but now it's completely useless and won't give me ANY results."
+  },
+  {
+    "id": 987,
+    "cluster": 4,
+    "source": "play_store",
+    "text": "The search option in Google Photos has disappeared. When it was available, it was very easy to find documents. Now it's becoming very difficult to search for them. It would be great if the search option could be enabled again."
+  },
+  {
+    "id": 1001,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "I can't find all my photos ??? and their not in any file either I'm very upset not finding precious photos.. let that sink in \u2049\ufe0f..."
+  },
+  {
+    "id": 1077,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "I just took 3 screen shots and can can find nothing of them any where !??? ..."
+  },
+  {
+    "id": 1131,
+    "cluster": 4,
+    "source": "play_store",
+    "text": "I used to be able to search for memes and find them. Now when I search for the same things I have been, I am being told \"nothing found\". I don't always have time to put the pictures in their folders. Since switching phones all my photos got all mixed up and I can't find anything anymore! I liked the Samsung gallery better. I have even tried downloading photo sorting apps to help and paid apps but still the Google photos stays a mess. I have even tried to adjust settings to auto update folders!"
+  },
+  {
+    "id": 1147,
+    "cluster": 0,
+    "source": "play_store",
+    "text": "is there no other development necessary why 3 updates needed for storage management?. after update the albums created by me are not shown in albums and are grouped by system and it is difficult to find them now"
+  },
+  {
+    "id": 1155,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "this app is getting worse, previously it shows searching bar, but now ut hides it. this make searching difficult whenever I try to write the name of the pholder I couldn't see the searching tool or searching machine, I have to do it manually. I sometimes spent more than 30 minutes looking for an existing pholder in my photo list, but I couldn't see it. I begin to hate this app"
+  },
+  {
+    "id": 1194,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "I can't seem to find pics I need for memories. Since updating, I was just looking at a vid Google had out together and I was going to change out one of the pics & now I can't find the video. \ud83e\udd14 Other than that, I've always loved using Google photos.\ud83e\udef6"
+  },
+  {
+    "id": 1200,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "i cannot find my my dead husbands photo sand his dog.?"
+  },
+  {
+    "id": 1226,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "The AI search refused to show me my photos. I asked it to find pictures of an item of mine and it repeatedly said \"sorry I can't do that\" and when I asked why not suddenly it did what I asked it to originally."
+  },
+  {
+    "id": 1233,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "My photos don't group people and pets anymore. I have 5 albums for the same person and or pet now can't merge missing a ton of pics too. tried to look up an answer online and Google was useless. There's a bigger focus on selling products than functionality in the app."
+  },
+  {
+    "id": 1236,
+    "cluster": 0,
+    "source": "play_store",
+    "text": "The album and collection don't work at all, i just want to save the family and holidays travel album on the cloud and share with the family but Google photos simply show all the devices folder and i couldn't find my family and travel holiday album from the app not worth the price to subscribe the additional storage."
+  },
+  {
+    "id": 1243,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Ive used this for several years & I believe by far what Ive experienced is the best free app for photo storage I have photographs backed up all the way from 2008 the search engine cannot find anything no matter the keyword asked and the editor keeps getting worse and worse I go to erase a word and instead of erasing it it just changes the word to some nonsense jumbled letters I swear they hire morons why do you put the instructions over the top of the photo? they didn't look into it. it's worse"
+  },
+  {
+    "id": 1246,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "What did you do? I can't find anything all of a sudden. Stacked photos?! I couldn't find the picture I just took. After freaking out for a few minutes I discovered it was stacked and needed to be unstacked. That was a mean trick."
+  },
+  {
+    "id": 1259,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Ca't find pic from month of Nov 2023 and month of 2024 thanks"
+  },
+  {
+    "id": 1268,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "ever since they added the ai function, photos have been MUCH harder to find. Sometimes I'm lucky and it pulls up the name of the file I'm looking for, and most of the time I get random unrelated photos in my search. used to be an option where the ai is an option, now it makes it impossible to pull up whatever I'm looking for"
+  },
+  {
+    "id": 1277,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "We recently got a new cat that looks like other cats in our family and that is where hell began. The face thing automatically groups him under the other cats so I manually added a folder and started adding him. But one day it was gone and his photos went back to the other folders. I made another one and went to each folder to switch the faces to correct each one. That's when I learn if you remove a certain amount of photos then they delete the folder for that face. The people and pet is useless"
+  },
+  {
+    "id": 1294,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "I have problems finding my screen ahot"
+  },
+  {
+    "id": 1303,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "want to find previous pictures last phone Samsung S22+ phone flip to locked never locked"
+  },
+  {
+    "id": 1321,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "I despise the featured contact aspect that pulls photos and throws them in my face when I open my flipping phone. I keep erasing that permission and every time there's an update the same damn thing happens and now I can't find the place where I can get rid of it. I am looking for a specific photo and I am getting instead this huge flashing set of photographs that this stupid phone has decided it wants to show me. I do not want this damn thing. I hate this phone and I hate this app"
+  },
+  {
+    "id": 1384,
+    "cluster": 2,
+    "source": "play_store",
+    "text": "Google Photos has a serious timeline bug on Android. Some photos randomly disappear from their correct month and only show up in \u201cRecently Added,\u201d while everything looks normal in the browser version. This appears to be an indexing or metadata sync issue inside the mobile app. Very frustrating for users who organize photos by date. Please investigate and fix it."
+  },
+  {
+    "id": 1409,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "cause I ordered 4\u00d74 photos from Google photos or Drive and Gemini pro can't even help on finding my pictures!!!"
+  },
+  {
+    "id": 1421,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "When I search for a specific dog, other things/dogs come up. It doesn't distinguish and I have no cats yet purrs comes up. I spent a lot of time putting my different dogs in their own category and now the best advice I get is tap the 3 dots and move them manually. This is ridiculous and would take a long time. Please help me find a better way to get back to what I organized."
+  },
+  {
+    "id": 1432,
+    "cluster": 4,
+    "source": "play_store",
+    "text": "How come I search a birthday cake image and sent it to my niece, what a shame that what she received was a screenshot of a report about a Sheriff, doubled, that I had saved from 2021 when my sons car got stolen. While the cake image is recent, how can I deal now that I am trying to make peace with my niece as she didnt talk to us from when my brother died by the same time! I have a Gallery but I dont know, I will have to delete somehow your app and backup. Too many intromissions!"
+  },
+  {
+    "id": 1438,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "It used to work great and I would use it all the time. Now I pay for storage and the app doesn't work. The whole app is so slow, and won't load or back up images, can't delete images, edit, or find images passed a couple days old."
+  },
+  {
+    "id": 1442,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "it's an awesome app but a few days ago why I can't find people and pets in search"
+  },
+  {
+    "id": 1523,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Soo... Gemini features will remain useless unless you stop the censorship hamstring. I needed to find a photo of someone in white \u2013 nope can't do it. Someone in black? Nope can't do it. Looking for a photo that doesn't align with Gemini's childlike morality? Nope can't do it. Useless. Stop enshittifying everything."
+  },
+  {
+    "id": 1535,
+    "cluster": 3,
+    "source": "play_store",
+    "text": "I save video from text message and it's not in my camera roll. I go through some stupid steps to find it in my \"internal storage\" move it to a new folder and mark it as a favorite. it's not showing in any folders and it's extremely frustrating because it shows up if I wanted to send that same video as a text message. I'm very disappointed in this phone and this app is another annoying thing about it"
+  },
+  {
+    "id": 1577,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "I just took 3 screen shots and can can find nothing of them any where !??? ..."
+  },
+  {
+    "id": 1631,
+    "cluster": 4,
+    "source": "play_store",
+    "text": "I used to be able to search for memes and find them. Now when I search for the same things I have been, I am being told \"nothing found\". I don't always have time to put the pictures in their folders. Since switching phones all my photos got all mixed up and I can't find anything anymore! I liked the Samsung gallery better. I have even tried downloading photo sorting apps to help and paid apps but still the Google photos stays a mess. I have even tried to adjust settings to auto update folders!"
+  },
+  {
+    "id": 1700,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "i cannot find my my dead husbands photo sand his dog.?"
+  },
+  {
+    "id": 1726,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "The AI search refused to show me my photos. I asked it to find pictures of an item of mine and it repeatedly said \"sorry I can't do that\" and when I asked why not suddenly it did what I asked it to originally."
+  },
+  {
+    "id": 1733,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "My photos don't group people and pets anymore. I have 5 albums for the same person and or pet now can't merge missing a ton of pics too. tried to look up an answer online and Google was useless. There's a bigger focus on selling products than functionality in the app."
+  },
+  {
+    "id": 1736,
+    "cluster": 0,
+    "source": "play_store",
+    "text": "The album and collection don't work at all, i just want to save the family and holidays travel album on the cloud and share with the family but Google photos simply show all the devices folder and i couldn't find my family and travel holiday album from the app not worth the price to subscribe the additional storage."
+  },
+  {
+    "id": 1746,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "What did you do? I can't find anything all of a sudden. Stacked photos?! I couldn't find the picture I just took. After freaking out for a few minutes I discovered it was stacked and needed to be unstacked. That was a mean trick."
+  },
+  {
+    "id": 1759,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Ca't find pic from month of Nov 2023 and month of 2024 thanks"
+  },
+  {
+    "id": 1777,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "We recently got a new cat that looks like other cats in our family and that is where hell began. The face thing automatically groups him under the other cats so I manually added a folder and started adding him. But one day it was gone and his photos went back to the other folders. I made another one and went to each folder to switch the faces to correct each one. That's when I learn if you remove a certain amount of photos then they delete the folder for that face. The people and pet is useless"
+  },
+  {
+    "id": 1884,
+    "cluster": 2,
+    "source": "play_store",
+    "text": "Google Photos has a serious timeline bug on Android. Some photos randomly disappear from their correct month and only show up in \u201cRecently Added,\u201d while everything looks normal in the browser version. This appears to be an indexing or metadata sync issue inside the mobile app. Very frustrating for users who organize photos by date. Please investigate and fix it."
+  },
+  {
+    "id": 1909,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "cause I ordered 4\u00d74 photos from Google photos or Drive and Gemini pro can't even help on finding my pictures!!!"
+  },
+  {
+    "id": 1921,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "When I search for a specific dog, other things/dogs come up. It doesn't distinguish and I have no cats yet purrs comes up. I spent a lot of time putting my different dogs in their own category and now the best advice I get is tap the 3 dots and move them manually. This is ridiculous and would take a long time. Please help me find a better way to get back to what I organized."
+  },
+  {
+    "id": 1932,
+    "cluster": 4,
+    "source": "play_store",
+    "text": "How come I search a birthday cake image and sent it to my niece, what a shame that what she received was a screenshot of a report about a Sheriff, doubled, that I had saved from 2021 when my sons car got stolen. While the cake image is recent, how can I deal now that I am trying to make peace with my niece as she didnt talk to us from when my brother died by the same time! I have a Gallery but I dont know, I will have to delete somehow your app and backup. Too many intromissions!"
+  },
+  {
+    "id": 1953,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "AI search is slower, less accurate, and more presumptuous than the version we had before. When AI search first came out, we even had a choice between the two, no longer. It's forced AI that interests the companies' surveillance more than the customers' choice, and I'll be switching to another storage provider as soon as possible. For work, I'd look up \"maps\" to pull up maps of locations I service, but the AI assumes I want Google Maps or \"map view\" and takes over my phone's control to switch."
+  },
+  {
+    "id": 2023,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Soo... Gemini features will remain useless unless you stop the censorship hamstring. I needed to find a photo of someone in white \u2013 nope can't do it. Someone in black? Nope can't do it. Looking for a photo that doesn't align with Gemini's childlike morality? Nope can't do it. Useless. Stop enshittifying everything."
+  },
+  {
+    "id": 2109,
+    "cluster": 0,
+    "source": "play_store",
+    "text": "seems like there's a new update every day and absolutely NOTHING changes. I'm missing photos that I KNOW were uploaded and the app says they don't exist"
+  },
+  {
+    "id": 2195,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Stop deleting my photos without my permission!I checked my trash and archive and the photos im looking for aren't there and i'm not close to the storage limit. I pay $3 a month for extra storage so you can save my photos not delete them! also you need to fix your pet recognition especially black cats because I can't spend hours sorting through hundreds of photos of three different black cats. literally every single photo of my black cats is under the wrong profile!"
+  },
+  {
+    "id": 2198,
+    "cluster": 2,
+    "source": "play_store",
+    "text": "Fix Google Photos, PLZZZZ! It used to be my favorite, GO TO for photos until a few weeks ago. I'm an artist, photographer, and major ADHD - I have come to rely on GP so much it's almost 2nd skin, and saved me so much time & hassle.Now, I can't even find all of my photos, albums, etc. Most \ud83e\udd2c is not being able to just pull up a photo and attach or insert anywhere. Just spent over 1 hr trying to find a photo I had taken of an order that the seller asked for me to upload a pic. (Still can't)"
+  },
+  {
+    "id": 2205,
+    "cluster": 0,
+    "source": "play_store",
+    "text": "This app continues to get enshitified. In 2026 I thought I could send an album to Google photos without any issues but that's not supported. Instead, I selected each individual image and uploaded them thinking they'd be easy to find under recently uploaded. They were not. They were mixed in with my thousands of other pictures, which I'm obviously not going to look through. I'm just going to use another platform to make an album in the cloud. Crazy Google photos can no longer do that with ease."
+  },
+  {
+    "id": 2226,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "this app used to be perfect, but the quality has gone downhill. the new ai search rarely finds the photos i want in comparison to the old search where i'd find my photos every time. there's also a recent bug where adding photos to an album sometimes creates duplicates, and they are really hard to get rid of. it seems to be related to a delay when pressing the button to add a collection of photos, sometimes this hangs for like 10 seconds and i think if i press it twice i get duplicates."
+  },
+  {
+    "id": 2233,
+    "cluster": 1,
+    "source": "play_store",
+    "text": "Search doesn't work like it used to, so it kind of makes this app worthless to me! With nearly 60k photos I can no longer search for SOME family and friends names in label descriptions I've make over many years, very frustrating. I've contaced google and they cannot find a resolution! Oh, and also something new, the app actually erases what I type on the description! I have to remember to copy text so I can cut and paste, or I have to retype everything!"
+  }
+]

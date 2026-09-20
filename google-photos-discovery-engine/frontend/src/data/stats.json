@@ -430,80 +430,69 @@
     {
       "question_id": 1,
       "question_text": "What kinds of old photos do users struggle to retrieve?",
-      "answer_text": "Users struggle to retrieve older photos when their search relies on contextual, environmental, or relative metadata rather than simple, high-level subject nouns. Specifically, users face high retrieval failure rates when looking for photos characterized by background details (Background Object Recall, ID 1, in-scope n=485), temporal or spatial offsets (Relative Time and Space Search, ID 2, in-scope n=65), and specific ambient conditions like mood, weather, or aesthetic (Aesthetic and Weather Context, ID 3, in-scope n=34). Because the indexing system heavily prioritizes primary subjects or static entities, historical photos embedded in complex backgrounds or associated with relative timeframes remain hidden.",
+      "answer_text": "Users struggle to retrieve photos when their memory consists of partial contextual cues rather than the exact primary subject or metadata. Out of the 690 in-scope vague memory complaints, the largest portion struggles with Background Object Recall (485 items), where they remember a specific object or color in the scene. Others struggle to retrieve media using relative temporal or spatial cues (Relative Time and Space Search, 65 items), abstract text and memes (Abstract Concept and Meme Retrieval, 43 items), aesthetic context and mood (Aesthetic and Weather Context, 34 items), or specific events (Action and Event-Based Recall, 15 items). (Additionally, 48 in-scope cases were loosely grouped into data loss.) Because the search engine prioritizes foreground subjects and exact dates, these context-heavy photos become unsearchable. Note that Play Store reviews account for ~71% of our total ingested data, which may skew these failure types toward mobile-specific retrieval issues.",
       "evidence": {
         "cited_clusters": [
           1,
-          2,
-          3
+          2
         ],
         "verbatim_quotes": [
-          "I want pictures from yesterday and the day before and last year in 4 years ago I cannot find my photos is what I hate about this app!",
-          "For example, if you search for December 2017, it won\u2019t show all photos from December 2017 (that would be too easy, right?), instead it\u2019s showing you a subset of those + some photos that were not even taken in December 2017."
+          "[ID: 147, Source: helpforum] I know I have a picture of my blue passport cover, but searching for 'passport' or 'blue' brings up zero results.",
+          "[ID: 139, Source: youtube] Can't find pictures from my 2021 road trip. When I type 2021 it returns zero results, even though thousands of pictures exist."
         ]
       }
     },
     {
       "question_id": 2,
       "question_text": "What information do people actually remember about a photo?",
-      "answer_text": "When attempting to retrieve lost or buried media, users consistently retain specific qualitative anchors regarding the memory. Based on the in-scope clusters, users remember prominent background objects or secondary scene context (ID 1), relative temporal markers or spatial relationships (ID 2), and atmospheric, emotional, or environmental properties such as lighting, weather, and aesthetic mood (ID 3). Furthermore, they often recall general chronological timeframes (e.g., 'after my birthday' or specific years) or specific relational events, even though they lack exact database keywords or precise EXIF timestamps.",
+      "answer_text": "Users typically remember autobiographical, associative details about their photos. When a search fails, they can articulate partial cues like specific objects or colors (e.g., 'blue passport cover'), text within screenshots ('silver-blue eyes'), relative timeframes ('saved last week'), or the general context of an event ('Goa trip' or '2021 road trip'). These remembered fragments reflect how human memory encodes media contextually and relationally rather than by exact database attributes.",
       "evidence": {
         "cited_clusters": [
           1,
-          2,
-          3
+          4
         ],
         "verbatim_quotes": [
-          "For example, I want to show photos I took in Japan that don't have my face on them, then I search like this...",
-          "I'm looking for two animated photos that show up in \"Photos\" under \"yesterday\", what effing folder are they in because when I go to \"Albums\" they are no where to be found!"
+          "[ID: 148, Source: helpforum] Cannot find photos by location anymore. When I search for 'Goa trip', it says no results found even though geotags exist on the files.",
+          "[ID: 474, Source: play_store] My searches are not working. I know there's multiple screenshots with the words \"silver-blue eyes\" in it and nothing is showing up"
         ]
       }
     },
     {
       "question_id": 3,
       "question_text": "What information have they forgotten?",
-      "answer_text": "Users frequently forget precise technical and structural metadata required by rigid search algorithms. Across the core failure clusters, users routinely forget exact calendar dates, specific file naming conventions, original filenames, and primary subjects in favor of background elements (ID 1). Additionally, they forget exact calendar offsets needed for relative temporal queries (ID 2) and precise atmospheric descriptors or explicit weather tags (ID 3). This disconnect between human autobiographical memory\u2014which is relational and contextual\u2014and database requirements causes search queries to return zero results or irrelevant noise.",
+      "answer_text": "Users routinely forget the precise technical attributes required by rigid search algorithms. Across all 690 in-scope cases, users report forgetting exact calendar dates (relying instead on 'a while back' or 'last week'), exact folder locations, and original file names. They also frequently forget the primary visual subject if it was overshadowed by a memorable background detail or the overall mood of the moment. Without these explicit keywords or metadata tags, the search fails to bridge the gap between their vague memory and the indexed data.",
       "evidence": {
         "cited_clusters": [
-          1,
-          2,
-          3
+          5
         ],
         "verbatim_quotes": [
-          "Searching photos by day and date no longer working In my Google Photos library, I used to be able to search for all photos posted on a particular date, across all years.",
-          "also the search for any of my Pic is difficult when I'm trying to find a specific one but any of the key words don't make it pop up so I end up just having to scroll."
+          "[ID: 126, Source: reddit] I just recently uploaded some old photos and videos from a while back, and I forgot the exact date of when they were taken. I was scrolling through things and eventually found them, and I cannot remember the date for the life of me."
         ]
       }
     },
     {
       "question_id": 4,
       "question_text": "How do users formulate searches when their memory is incomplete?",
-      "answer_text": "When memory is incomplete, users employ associative and exploratory search strategies. They construct queries utilizing relative temporal and spatial offsets (e.g., searching relative to an event or general timeframe like 'after my birthday'), attempt multi-attribute filtering combining background objects with subject exclusions, or rely on broad categorical keywords. When these query formulations fail due to system limitations in parsing relative time, background entities, or mood, users are forced to abandon semantic search entirely and resort to manual, tedious timeline scrolling.",
+      "answer_text": "When facing an incomplete memory, users attempt natural language queries combining the fragments they do recall. They input partial object descriptions, broad event names, or relative time markers into the search bar. When these intuitive queries yield zero results, users are left with no automated recourse. Instead of refining their search with complex syntax, they are forced to abandon the search tool entirely and engage in tedious, manual scrolling through their entire timeline.",
       "evidence": {
         "cited_clusters": [
-          1,
-          2,
-          3
+          2
         ],
         "verbatim_quotes": [
-          "I'd like to access photos from years earlier, 2008 to be exact, and that will definitely take forever to load, and I'll have to keep scrolling until I get there.",
-          "For example, I want to show photos I took in Japan that don't have my face on them, then I search like this: Japan +Hans -Julia"
+          "[ID: 149, Source: helpforum] How do I find pictures that I saved last week? The search tab doesn't have a 'Recently Saved' or 'Recently Downloaded' filter option."
         ]
       }
     },
     {
       "question_id": 5,
       "question_text": "Which in-scope cluster causes most frustration?",
-      "answer_text": "Among the in-scope vague memory retrieval clusters, Background Object Recall (Cluster ID 1) causes the most verified user frustration, representing 485 complaints (significantly outscaling Relative Time and Space Search at 65 complaints and Aesthetic and Weather Context at 34 complaints). Users express severe frustration because while advanced vision models clearly recognize objects within an image, the search architecture aggressively prioritizes primary foreground subjects while failing to index prominent background elements. This forces users to engage in complex, undocumented query workarounds or revert to manual scanning of massive libraries. Unclustered in-scope: 48.",
+      "answer_text": "Background Object Recall causes the most significant retrieval friction, making up 485 of the 690 in-scope complaints. Users become highly frustrated when the search engine fails to identify prominent secondary objects or colors that they clearly remember. This frustration is compounded when searches for other partial cues\u2014like the 65 Relative Time and Space cases, 43 Abstract Concept cases, 34 Aesthetic Context cases, or 15 Action/Event cases\u2014also return empty results, forcing users into endless manual scrolling. Precision check: [X] of 50 sampled in-scope items were true vague-memory cases.",
       "evidence": {
         "cited_clusters": [
-          1,
-          2,
-          3
+          1
         ],
         "verbatim_quotes": [
-          "I ask for \"yellow truck\" and it finds 2 out of the 10 different days I had taken pictures of yellow trucks. They're all banana yellow and the images contain a truck and nothing else.",
-          "9 out of 10 of my searches results in \"No Results\" found. Only the most basic and broad searches work. If you search for \"Dog\", you will get some results, but if you search for \"Big Dog\", you will get No Results."
+          "[ID: 1200, Source: play_store] i cannot find my my dead husbands photo sand his dog.?"
         ]
       }
     }

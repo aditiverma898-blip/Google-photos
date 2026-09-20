@@ -126,7 +126,7 @@ export default function TestDrive() {
               ) : complaintResults.match_status === 'Out of scope: data loss' && complaintResults.nearest_cluster ? (
                 <div className="cluster-match">
                   <span className="match-label" style={{ color: '#f87171' }}>✗ Out of scope: data loss (Cluster #{complaintResults.nearest_cluster.cluster_id}):</span>
-                  <span className="match-title" style={{ textDecoration: 'line-through' }}>{complaintResults.nearest_cluster.label}</span>
+                  <span className="match-title">{complaintResults.nearest_cluster.label}</span>
                   <p>{complaintResults.nearest_cluster.description}</p>
                   <div className="distance-badge warning" style={{ background: 'rgba(248, 113, 113, 0.1)', color: '#f87171', border: '1px solid rgba(248, 113, 113, 0.2)' }}>
                     Distance: {complaintResults.nearest_cluster.distance.toFixed(4)}
@@ -185,6 +185,9 @@ export default function TestDrive() {
             </div>
           </div>
         )}
+        <div style={{ marginTop: '2rem', fontSize: '0.85rem', color: 'var(--text-secondary)', textAlign: 'center' }}>
+          Test Drive nearest-complaint examples include some synthetic entries for demonstration. All dashboard counts use real scraped data.
+        </div>
       </div>
     </div>
   );

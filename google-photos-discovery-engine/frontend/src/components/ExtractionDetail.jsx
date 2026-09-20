@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ExtractionDetail.css';
 
-export default function ExtractionDetail({ record }) {
+export default function ExtractionDetail({ record, cluster }) {
   const [expanded, setExpanded] = useState(false);
 
   const getVal = (val) => val || <span className="not-extracted">Not extracted</span>;
@@ -47,6 +47,18 @@ export default function ExtractionDetail({ record }) {
               <span className="ed-value">Cluster #{record.cluster_id} {record.cluster_label ? `- ${record.cluster_label}` : ''}</span>
             </div>
           </div>
+          {cluster && (
+            <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.1)', fontSize: '12px' }}>
+              <div style={{ color: 'var(--text-secondary)', marginBottom: '8px' }}>
+                Verifier pass/reject counts on the pre-scope cluster, not funnel counts:
+              </div>
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <span style={{ color: '#4ade80' }}>✓ {cluster.confirmed_relevant || 0} passed</span>
+                <span style={{ color: '#f87171' }}>✗ {cluster.confirmed_irrelevant || 0} rejected</span>
+                <span style={{ color: '#9ca3af' }}>? {cluster.unverified || 0} unverified</span>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

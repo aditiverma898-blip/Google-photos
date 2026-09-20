@@ -1,16 +1,14 @@
 .navbar {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 9999;
+  background-color: var(--bg-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: 2rem;
-  border-radius: 0;
-  border-left: none;
-  border-right: none;
-  border-top: none;
 }
 
 .navbar-container {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 1rem 2rem;
   display: flex;

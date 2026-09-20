@@ -6,7 +6,7 @@ export default function NavBar() {
   const location = useLocation();
 
   return (
-    <nav className="navbar glass-panel">
+    <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
           <span className="text-gradient">Photos Discovery Engine</span>
