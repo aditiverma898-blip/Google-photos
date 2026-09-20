@@ -84,7 +84,7 @@ export default function ClusterDetail() {
           fontSize: '0.9rem',
           lineHeight: '1.5'
         }}>
-          ⚠️ <strong>Emerging pattern — low sample size (n={records.length}), not yet statistically supported:</strong> This pattern currently contains only {records.length} sample complaints in the database. It is tracked as an observational hypothesis rather than a statistically validated cluster.
+          ⚠️ <strong>Emerging pattern — low sample:</strong> This pattern currently contains only {records.length} sample complaints in the database. It is tracked as an observational hypothesis rather than a statistically validated cluster.
         </div>
       )}
 

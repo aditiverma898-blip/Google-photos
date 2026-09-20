@@ -48,7 +48,7 @@ export default function ClusterCard({ cluster }) {
             className="severity-badge severity-emerging"
             title="Emerging pattern — low sample size, not yet statistically supported"
           >
-            Emerging pattern — low sample size (n={cluster.record_count || 2}), not yet statistically supported
+            EMERGING PATTERN: LOW SAMPLE ({cluster.vague_memory_count || 0} in-scope)
           </span>
         ) : (
           <span className={`severity-badge ${getSeverityClass(cluster.severity_score)}`}>
@@ -76,11 +76,10 @@ export default function ClusterCard({ cluster }) {
       <div className="cluster-stats">
         <div className="stat-item stat-item-breakdown" style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-start' }}>
           <span className="stat-label" style={{ marginBottom: '4px' }}>Scope Classification</span>
-          <div style={{ fontSize: '13px', display: 'flex', gap: '8px' }}>
+          <div style={{ fontSize: '13px', display: 'flex', flexDirection: 'column', gap: '4px', whiteSpace: 'nowrap' }}>
             <span style={{ color: isOutOfScope ? '#94a3b8' : '#c084fc', fontWeight: 600 }}>
               In-scope: {cluster.vague_memory_count || 0}
             </span>
-            <span style={{ color: 'var(--text-secondary)' }}>|</span>
             <span style={{ color: isOutOfScope ? '#fb923c' : '#94a3b8' }}>
               Sync/loss items in this cluster: {cluster.data_loss_count || 0} (excluded)
             </span>

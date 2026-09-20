@@ -6,6 +6,8 @@ import './Dashboard.css';
 // Consolidate data to single source of truth
 import statsData from '../data/stats.json';
 
+const config = { precisionX: null };
+
 export default function Dashboard() {
   const clusters = statsData.clusters || [];
   const synthesis = statsData.synthesis || [];
@@ -50,7 +52,9 @@ export default function Dashboard() {
     const topTakeaways = [];
     if (inScopeRanked.length > 0) {
       const topByVol = [...inScopeRanked].sort((a, b) => b.vague_memory_count - a.vague_memory_count)[0];
-      topTakeaways.push(`${topByVol.label} has the most in-scope complaints: ${topByVol.vague_memory_count} out of ${topByVol.confirmed_relevant} verified complaints.`);
+      const inScopeTotal = coverage.vague_memory_complaints || 690;
+      const pct = Math.round((topByVol.vague_memory_count / inScopeTotal) * 100);
+      topTakeaways.push(`${topByVol.label} has the most in-scope complaints: ${topByVol.vague_memory_count} of ${inScopeTotal} in-scope complaints (${pct}%).`);
       
       const topBySeverity = [...inScopeRanked].sort((a, b) => b.severity_score - a.severity_score)[0];
       topTakeaways.push(`${topBySeverity.label} causes the highest average frustration (severity score: ${(topBySeverity.severity_score).toFixed(2)}).`);
@@ -315,23 +319,27 @@ export default function Dashboard() {
 
             <div style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)', fontSize: '0.8rem', color: 'var(--text-secondary)', textAlign: 'center' }}>
               <strong>Caveats:</strong> Analysis based on {coverage ? coverage.total_corpus.toLocaleString() : "---"} total feedback records. Play Store accounts for ~{strategicInsights.playStorePercent}% of data, meaning results may skew toward Android user behavior.
+              {config.precisionX != null && (
+                <span style={{ display: 'block', marginTop: '0.5rem' }}>
+                  Precision check: {config.precisionX} of 50 sampled in-scope items were true vague-memory cases.
+                </span>
+              )}
+            </div>
+
+            {/* Reconciliation Footer */}
+            <div style={{ marginTop: '1.5rem', padding: '1.25rem', background: 'rgba(255,255,255,0.02)', borderRadius: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)', border: '1px solid rgba(255,255,255,0.05)' }}>
+              {!isReconciled && (
+                <div style={{ color: '#ef4444', fontWeight: 'bold', marginBottom: '0.75rem' }}>
+                  Warning: Counts do not reconcile! In-Scope Expected: {coverage?.vague_memory_complaints || 690} vs Computed: {computedInScopeSum}. Excluded Expected: {coverage?.data_loss_complaints || 1715} vs Computed: {computedExcludedSum}.
+                </div>
+              )}
+              <div style={{ lineHeight: '1.6' }}>
+                <strong>{coverage?.vague_memory_complaints || 690} in-scope</strong> = {inScopeBreakdown}.<br />
+                <strong>{(coverage?.data_loss_complaints || 1715).toLocaleString()} excluded</strong> = {excludedBreakdown}.
+              </div>
             </div>
           </div>
         )}
-      </section>
-
-      {/* Reconciliation Footer */}
-      <section className="reconciliation-footer" style={{ marginTop: '4.5rem', padding: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-        {!isReconciled && (
-          <div style={{ color: '#ef4444', fontWeight: 'bold', marginBottom: '1rem', padding: '1rem', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '8px' }}>
-            Warning: Counts do not reconcile! In-Scope Expected: {coverage?.vague_memory_complaints || 690} vs Computed: {computedInScopeSum}. Excluded Expected: {coverage?.data_loss_complaints || 1715} vs Computed: {computedExcludedSum}.
-          </div>
-        )}
-        <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-          {coverage?.vague_memory_complaints || 690} in-scope = {inScopeBreakdown}.{' '}
-          {(coverage?.data_loss_complaints || 1715).toLocaleString()} excluded = {excludedBreakdown}.{' '}
-          Clusters were assigned before scope filtering, so some sync/loss items landed in retrieval clusters; only in-scope items are counted.
-        </div>
       </section>
 
     </div>

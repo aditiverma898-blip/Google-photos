@@ -460,7 +460,7 @@
     {
       "question_id": 3,
       "question_text": "What information have they forgotten?",
-      "answer_text": "Users routinely forget the precise technical attributes required by rigid search algorithms. Across all 690 in-scope cases, users report forgetting exact calendar dates (relying instead on 'a while back' or 'last week'), exact folder locations, and original file names. They also frequently forget the primary visual subject if it was overshadowed by a memorable background detail or the overall mood of the moment. Without these explicit keywords or metadata tags, the search fails to bridge the gap between their vague memory and the indexed data.",
+      "answer_text": "Users routinely forget the precise technical attributes required by rigid search algorithms. In the examples reviewed, users report forgetting exact calendar dates (relying instead on 'a while back' or 'last week'), exact folder locations, and original file names. They also frequently forget the primary visual subject if it was overshadowed by a memorable background detail or the overall mood of the moment. Without these explicit keywords or metadata tags, the search fails to bridge the gap between their vague memory and the indexed data.",
       "evidence": {
         "cited_clusters": [
           5
@@ -486,7 +486,7 @@
     {
       "question_id": 5,
       "question_text": "Which in-scope cluster causes most frustration?",
-      "answer_text": "Background Object Recall causes the most significant retrieval friction, making up 485 of the 690 in-scope complaints. Users become highly frustrated when the search engine fails to identify prominent secondary objects or colors that they clearly remember. This frustration is compounded when searches for other partial cues\u2014like the 65 Relative Time and Space cases, 43 Abstract Concept cases, 34 Aesthetic Context cases, or 15 Action/Event cases\u2014also return empty results, forcing users into endless manual scrolling. Precision check: [X] of 50 sampled in-scope items were true vague-memory cases.",
+      "answer_text": "Background Object Recall causes the most significant retrieval friction, making up 485 of the 690 in-scope complaints. Users become highly frustrated when the search engine fails to identify prominent secondary objects or colors that they clearly remember. This frustration is compounded when searches for other partial cues\u2014like the 65 Relative Time and Space cases, 43 Abstract Concept cases, 34 Aesthetic Context cases, or 15 Action/Event cases\u2014also return empty results, forcing users into endless manual scrolling.",
       "evidence": {
         "cited_clusters": [
           1
